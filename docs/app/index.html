@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Residio Owners</title>
+<style>
+  :root{
+    --bg:#0c0d10; --bg2:#101218; --panel:#15171e; --card:#1b1e26; --card2:#21242d;
+    --line:#2a2e38; --ink:#f4f2ec; --muted:#9aa1ad; --faint:#6b7280;
+    --gold:#c8a96e; --gold2:#e0c089; --green:#5dcaa5; --amber:#ef9f27; --red:#e2625f; --blue:#7fa8e0;
+    --radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;}
+  html,body{height:100%;}
+  body{background:var(--bg);color:var(--ink);overflow:hidden;}
+  .app{display:grid;grid-template-columns:228px 1fr;height:100vh;}
+  /* Sidebar */
+  .side{background:var(--bg2);border-right:1px solid var(--line);padding:18px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;}
+  .brand{display:flex;align-items:center;gap:10px;padding:6px 8px 16px;}
+  .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a1408;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;}
+  .brand b{font-size:15px;font-weight:600;} .brand span{font-size:11px;color:var(--faint);display:block;}
+  .nav a{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;color:var(--muted);font-size:14px;cursor:pointer;text-decoration:none;transition:.18s;}
+  .nav a .ic{width:18px;text-align:center;font-size:15px;}
+  .nav a:hover{background:var(--card);color:var(--ink);}
+  .nav a.active{background:var(--card2);color:var(--ink);}
+  .nav a.active .ic{color:var(--gold);}
+  .navlabel{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);padding:14px 12px 6px;}
+  .side .acct{margin-top:auto;display:flex;align-items:center;gap:10px;padding:10px;border-top:1px solid var(--line);}
+  .av{width:32px;height:32px;border-radius:50%;background:rgba(200,169,110,.18);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;}
+  /* Main */
+  .main{display:flex;flex-direction:column;overflow:hidden;}
+  .top{display:flex;align-items:center;gap:14px;padding:14px 26px;border-bottom:1px solid var(--line);background:var(--bg2);}
+  .top h1{font-size:18px;font-weight:600;}
+  .top .sub{font-size:12px;color:var(--faint);}
+  .spacer{flex:1;}
+  .chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:12px;color:var(--muted);cursor:pointer;}
+  .chip.live{color:var(--green);} .chip.live .pulse{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(93,202,165,.5);}70%{box-shadow:0 0 0 7px rgba(93,202,165,0);}100%{box-shadow:0 0 0 0 rgba(93,202,165,0);}}
+  .view{flex:1;overflow-y:auto;padding:24px 26px 60px;}
+  .view section{animation:rise .4s ease both;}
+  @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  /* Cards */
+  .grid{display:grid;gap:14px;}
+  .g4{grid-template-columns:repeat(4,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g2{grid-template-columns:repeat(2,1fr);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;}
+  .kpi .l{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px;}
+  .kpi .v{font-size:26px;font-weight:600;margin:8px 0 3px;}
+  .kpi .d{font-size:12px;} .up{color:var(--green);} .dn{color:var(--red);} .mut{color:var(--muted);} .warn{color:var(--amber);}
+  .sechead{display:flex;align-items:center;justify-content:space-between;margin:26px 0 12px;}
+  .sechead h2{font-size:15px;font-weight:600;} .sechead .more{font-size:12px;color:var(--gold);cursor:pointer;}
+  /* hero 3d */
+  .hero{display:grid;grid-template-columns:1.3fr 1fr;gap:14px;align-items:stretch;}
+  #three{width:100%;height:230px;border-radius:var(--radius);background:radial-gradient(circle at 60% 40%,#1a1d26,#0c0d10);border:1px solid var(--line);}
+  /* table */
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:left;color:var(--faint);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.6px;padding:8px 10px;border-bottom:1px solid var(--line);}
+  td{padding:11px 10px;border-bottom:1px solid var(--line);}
+  tr:hover td{background:var(--card2);}
+  .tag{font-size:11px;padding:3px 9px;border-radius:20px;display:inline-block;}
+  .t-green{background:rgba(93,202,165,.16);color:var(--green);} .t-amber{background:rgba(239,159,39,.16);color:var(--amber);}
+  .t-gray{background:rgba(154,161,173,.14);color:var(--muted);} .t-blue{background:rgba(127,168,224,.16);color:var(--blue);}
+  .t-gold{background:rgba(200,169,110,.16);color:var(--gold);}
+  /* filters */
+  .filters{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+  .fbtn{background:var(--card);border:1px solid var(--line);color:var(--muted);border-radius:20px;padding:6px 14px;font-size:12px;cursor:pointer;transition:.15s;}
+  .fbtn.on{background:var(--gold);color:#1a1408;border-color:var(--gold);}
+  /* toggle */
+  .auto{display:flex;align-items:center;gap:13px;padding:14px;border-bottom:1px solid var(--line);}
+  .auto:last-child{border-bottom:none;}
+  .auto .ico{width:38px;height:38px;border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--blue);}
+  .auto .t{font-size:14px;font-weight:600;} .auto .s{font-size:12px;color:var(--muted);margin-top:2px;}
+  .sw{width:44px;height:25px;border-radius:20px;background:var(--card2);position:relative;cursor:pointer;transition:.2s;flex-shrink:0;}
+  .sw.on{background:var(--green);} .sw::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;transition:.2s;}
+  .sw.on::after{left:22px;}
+  /* lists / threads */
+  .thread{display:flex;gap:12px;padding:13px;border-radius:10px;cursor:pointer;}
+  .thread:hover{background:var(--card2);}
+  .bubble{max-width:78%;padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.5;margin-bottom:9px;}
+  .b-them{background:var(--card2);border-top-left-radius:4px;}
+  .b-me{background:rgba(200,169,110,.16);border-top-right-radius:4px;margin-left:auto;}
+  .grokstamp{font-size:11px;color:var(--gold);text-align:right;margin:-4px 0 9px;}
+  .btn{background:var(--gold);color:#1a1408;border:none;border-radius:10px;padding:11px 16px;font-size:13px;font-weight:600;cursor:pointer;}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);}
+  .bar{height:7px;border-radius:6px;background:var(--card2);overflow:hidden;}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));}
+  input[type=range]{width:100%;accent-color:var(--gold);}
+  .pinput{background:var(--card2);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:11px;width:100%;font-size:13px;}
+  .progress{font-variant-numeric:tabular-nums;}
+  /* bottom nav (mobile) */
+  .bnav{display:none;}
+  @media(max-width:860px){
+    .app{grid-template-columns:1fr;}
+    .side{display:none;}
+    .view{padding:18px 16px 86px;}
+    .g4{grid-template-columns:1fr 1fr;} .g3,.g2,.hero{grid-template-columns:1fr;}
+    .top{padding:12px 16px;}
+    .bnav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--line);justify-content:space-around;padding:9px 0;z-index:30;}
+    .bnav a{color:var(--faint);font-size:10px;text-align:center;text-decoration:none;cursor:pointer;}
+    .bnav a.active{color:var(--gold);} .bnav a .ic{display:block;font-size:19px;margin-bottom:2px;}
+  }
+  .hide{display:none;}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><div class="logo">R</div><div><b>Residio Owners</b><span>The Empire Stays</span></div></div>
+    <div class="navlabel">Overview</div>
+    <nav class="nav" id="nav">
+      <a data-route="dashboard"><span class="ic">⌂</span>Dashboard</a>
+      <a data-route="properties"><span class="ic">▦</span>Properties</a>
+      <a data-route="bookings"><span class="ic">▤</span>Bookings</a>
+      <a data-route="payouts"><span class="ic">◈</span>Payouts</a>
+      <div class="navlabel">Guest engine</div>
+      <a data-route="inbox"><span class="ic">✉</span>Inbox · Grok</a>
+      <a data-route="reviews"><span class="ic">★</span>Reviews</a>
+      <div class="navlabel">Automation</div>
+      <a data-route="automations"><span class="ic">⚡</span>Automations</a>
+      <a data-route="pricing"><span class="ic">₹</span>Dynamic pricing</a>
+      <a data-route="settings"><span class="ic">⚙</span>Settings</a>
+    </nav>
+    <div class="acct"><div class="av">MT</div><div><div style="font-size:13px;font-weight:600;">Meet</div><div style="font-size:11px;color:var(--faint);">Owner · 10 units</div></div></div>
+  </aside>
+
+  <div class="main">
+    <header class="top">
+      <div><h1 id="ttl">Dashboard</h1><div class="sub" id="sub">Portfolio overview</div></div>
+      <div class="spacer"></div>
+      <span class="chip live"><span class="pulse"></span>Live</span>
+      <span class="chip">⚡ Zapier · 5 zaps</span>
+    </header>
+    <main class="view" id="view"></main>
+  </div>
+</div>
+
+<nav class="bnav" id="bnav">
+  <a data-route="dashboard"><span class="ic">⌂</span>Home</a>
+  <a data-route="bookings"><span class="ic">▤</span>Bookings</a>
+  <a data-route="payouts"><span class="ic">◈</span>Payouts</a>
+  <a data-route="inbox"><span class="ic">✉</span>Inbox</a>
+  <a data-route="automations"><span class="ic">⚡</span>Auto</a>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const fmt = n => "₹" + n.toLocaleString("en-IN");
+const DB = {
+  properties:[
+    {n:"Bandra 2BHK",a:"Mumbai",beds:2,st:"Occupied",adr:10500,occ:88,rt:4.9},
+    {n:"Juhu Sea View",a:"Mumbai",beds:3,st:"Occupied",adr:15800,occ:82,rt:4.8},
+    {n:"Andheri Studio",a:"Mumbai",beds:1,st:"Cleaning",adr:6200,occ:74,rt:4.7},
+    {n:"Powai Lakeside",a:"Mumbai",beds:2,st:"Occupied",adr:9800,occ:80,rt:4.8},
+    {n:"Thane Studio",a:"Thane",beds:1,st:"Vacant",adr:5200,occ:69,rt:4.6},
+    {n:"Thane 2BHK",a:"Thane",beds:2,st:"Occupied",adr:8400,occ:77,rt:4.7},
+    {n:"Dombivli 1BHK",a:"Dombivli",beds:1,st:"Vacant",adr:4300,occ:64,rt:4.5},
+    {n:"Dombivli Loft",a:"Dombivli",beds:1,st:"Occupied",adr:5600,occ:71,rt:4.6},
+    {n:"Worli Highrise",a:"Mumbai",beds:3,st:"Occupied",adr:18900,occ:85,rt:4.9},
+    {n:"Colaba Heritage",a:"Mumbai",beds:2,st:"Cleaning",adr:13200,occ:79,rt:4.8},
+  ],
+  bookings:[
+    {g:"Rohan Shah",p:"Bandra 2BHK",ch:"Airbnb",in:"12 Jul",out:"15 Jul",amt:31500,st:"Confirmed"},
+    {g:"Priya Menon",p:"Thane Studio",ch:"MMT",in:"14 Jul",out:"16 Jul",amt:12800,st:"Confirmed"},
+    {g:"Aditya Rao",p:"Juhu Sea View",ch:"Booking",in:"15 Jul",out:"19 Jul",amt:63200,st:"Confirmed"},
+    {g:"Inquiry",p:"Dombivli 1BHK",ch:"Airbnb",in:"20 Jul",out:"22 Jul",amt:8600,st:"Inquiry"},
+    {g:"Sara Khan",p:"Worli Highrise",ch:"Direct",in:"18 Jul",out:"21 Jul",amt:56700,st:"Confirmed"},
+    {g:"Neel Gupta",p:"Powai Lakeside",ch:"Airbnb",in:"22 Jul",out:"24 Jul",amt:19600,st:"Pending"},
+    {g:"Isha Verma",p:"Colaba Heritage",ch:"MMT",in:"24 Jul",out:"27 Jul",amt:39600,st:"Confirmed"},
+  ],
+  payouts:[
+    {d:"4 Jul",amt:84000,st:"Scheduled",src:"Airbnb + MMT"},
+    {d:"11 Jul",amt:61200,st:"Scheduled",src:"Booking.com"},
+    {d:"27 Jun",amt:72400,st:"Paid",src:"Airbnb"},
+    {d:"20 Jun",amt:68900,st:"Paid",src:"MMT + Direct"},
+  ],
+  threads:[
+    {g:"Rohan Shah",p:"Bandra 2BHK",last:"3pm works, thanks!",unread:0,grok:true},
+    {g:"Aditya Rao",p:"Juhu Sea View",last:"Is early check-in possible?",unread:2,grok:true},
+    {g:"Sara Khan",p:"Worli Highrise",last:"Sent the smart-lock code ✓",unread:0,grok:true},
+  ],
+  reviews:[
+    {g:"Megha P.",p:"Powai Lakeside",rt:5,txt:"Spotless and a great host. Highly recommend!",
+     reply:"Thank you so much, Megha! It was a pleasure hosting you — come back anytime. 🌟"},
+    {g:"Karan T.",p:"Andheri Studio",rt:4,txt:"Good stay, AC was a bit noisy.",
+     reply:"Thanks for the honest note, Karan! We've serviced the AC already — hope to host you again."},
+  ],
+  automations:[
+    {ic:"⌯",t:"Guest replies",s:"Grok · replied 2m ago",on:true},
+    {ic:"₹",t:"Dynamic pricing",s:"daily · synced 6:00 am",on:true},
+    {ic:"▦",t:"Calendar sync",s:"Airbnb · MMT · Booking.com",on:true},
+    {ic:"★",t:"Review replies",s:"your tone · 4 pending",on:true},
+    {ic:"%",t:"Promotions",s:"paused",on:false},
+    {ic:"✦",t:"SEO refresh",s:"weekly · last Sun",on:true},
+  ],
+  revenue:[178,192,205,221,214,241]
+};
+const months=["Jan","Feb","Mar","Apr","May","Jun"];
+let filter="All";
+
+const tagClass = s => ({Confirmed:"t-green",Paid:"t-green",Occupied:"t-green",Scheduled:"t-blue",Pending:"t-amber",Cleaning:"t-amber",Inquiry:"t-gray",Vacant:"t-gray"}[s]||"t-gray");
+const chTag = c => ({Airbnb:"t-red",MMT:"t-amber",Booking:"t-blue","Booking.com":"t-blue",Direct:"t-gold"}[c]||"t-gray");
+
+function sparkSVG(data){
+  const w=320,h=120,max=Math.max(...data),min=Math.min(...data)*0.95;
+  const pts=data.map((v,i)=>[20+i*(w-40)/(data.length-1),h-12-((v-min)/(max-min))*(h-34)]);
+  const line=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(0)+" "+p[1].toFixed(0)).join(" ");
+  const area=line+` L${pts[pts.length-1][0].toFixed(0)} ${h-12} L20 ${h-12} Z`;
+  const dots=pts.map(p=>`<circle cx="${p[0].toFixed(0)}" cy="${p[1].toFixed(0)}" r="3" fill="#c8a96e"/>`).join("");
+  const labs=months.map((m,i)=>`<text x="${(20+i*(w-40)/(data.length-1)).toFixed(0)}" y="${h-1}" fill="#6b7280" font-size="9" text-anchor="middle">${m}</text>`).join("");
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}">
+    <path d="${area}" fill="rgba(200,169,110,.12)"/><path d="${line}" fill="none" stroke="#c8a96e" stroke-width="2.2"/>${dots}${labs}</svg>`;
+}
+
+const ROUTES = {
+  dashboard:{t:"Dashboard",s:"Portfolio overview",r:viewDashboard},
+  properties:{t:"Properties",s:"10 units · Mumbai · Thane · Dombivli",r:viewProperties},
+  bookings:{t:"Bookings",s:"Across all channels",r:viewBookings},
+  payouts:{t:"Payouts",s:"Scheduled and history",r:viewPayouts},
+  inbox:{t:"Inbox · Grok",s:"Guest messaging, auto-drafted",r:viewInbox},
+  reviews:{t:"Reviews",s:"Tone-matched replies",r:viewReviews},
+  automations:{t:"Automations",s:"Zapier · 5 zaps running",r:viewAutomations},
+  pricing:{t:"Dynamic pricing",s:"Daily, demand-based",r:viewPricing},
+  settings:{t:"Settings",s:"Account and security",r:viewSettings},
+};
+
+function viewDashboard(){
+  const occ=Math.round(DB.properties.reduce((a,p)=>a+p.occ,0)/DB.properties.length);
+  return `<section>
+    <div class="hero">
+      <div class="card" style="display:flex;flex-direction:column;">
+        <div class="sub" style="color:var(--muted);font-size:12px;">Live portfolio</div>
+        <div style="font-size:30px;font-weight:600;margin:6px 0;">10 properties</div>
+        <div style="color:var(--muted);font-size:13px;line-height:1.7;">3 cities · ${occ}% occupancy · ₹2.41L this month. Automations are running guest replies, pricing, calendar sync and reviews in the background.</div>
+        <div style="margin-top:auto;display:flex;gap:8px;padding-top:14px;">
+          <button class="btn" onclick="go('bookings')">View bookings</button>
+          <button class="btn ghost" onclick="go('automations')">Automations</button>
+        </div>
+      </div>
+      <div id="three"></div>
+    </div>
+    <div class="grid g4" style="margin-top:14px;">
+      ${kpi("Revenue · month","₹","241000","+12% vs last","up","◷")}
+      ${kpi("Occupancy","","${occ}","next 30 days","mut","▦",occ+"%")}
+      ${kpi("Next payout","₹","84000","in 4 days","mut","◈")}
+      ${kpi("Open tasks","","3","1 cleaning due","warn","✓")}
+    </div>
+    <div class="sechead"><h2>Revenue — last 6 months</h2><span class="more" onclick="go('payouts')">Payouts →</span></div>
+    <div class="card">${sparkSVG(DB.revenue)}</div>
+    <div class="sechead"><h2>Today</h2><span class="more" onclick="go('bookings')">All bookings →</span></div>
+    <div class="card" style="padding:6px 0;">
+      <div class="auto"><div class="ico" style="color:var(--green);">⇲</div><div style="flex:1;"><div class="t">Check-in · Bandra 2BHK</div><div class="s">Rohan Shah · 3:00 pm · code auto-sent</div></div><span class="tag t-green">Ready</span></div>
+      <div class="auto"><div class="ico">⇱</div><div style="flex:1;"><div class="t">Checkout · Thane Studio</div><div class="s">11:00 am · cleaning auto-scheduled</div></div><span class="tag t-amber">Cleaning</span></div>
+    </div>
+  </section>`;
+}
+function kpi(l,pre,val,d,cls,ic,override){
+  return `<div class="card kpi"><div class="l"><span>${ic}</span>${l}</div>
+    <div class="v"><span class="progress" data-count="${val}" data-pre="${pre}">${override||(pre+"0")}</span></div>
+    <div class="d ${cls}">${d}</div></div>`;
+}
+function viewProperties(){
+  return `<section><div class="grid g3">${DB.properties.map(p=>`
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div><div style="font-weight:600;font-size:15px;">${p.n}</div><div style="color:var(--muted);font-size:12px;margin-top:2px;">${p.a} · ${p.beds} BR</div></div>
+        <span class="tag ${tagClass(p.st)}">${p.st}</span>
+      </div>
+      <div style="display:flex;gap:18px;margin:14px 0 8px;">
+        <div><div style="font-size:11px;color:var(--faint);">ADR</div><div style="font-weight:600;">${fmt(p.adr)}</div></div>
+        <div><div style="font-size:11px;color:var(--faint);">Occupancy</div><div style="font-weight:600;">${p.occ}%</div></div>
+        <div><div style="font-size:11px;color:var(--faint);">Rating</div><div style="font-weight:600;">★ ${p.rt}</div></div>
+      </div>
+      <div class="bar"><i style="width:${p.occ}%"></i></div>
+    </div>`).join("")}</div></section>`;
+}
+function viewBookings(){
+  const chans=["All","Airbnb","MMT","Booking","Direct"];
+  const rows=DB.bookings.filter(b=>filter==="All"||b.ch===filter||(filter==="Booking"&&b.ch.startsWith("Booking")));
+  return `<section>
+    <div class="filters">${chans.map(c=>`<button class="fbtn ${filter===c?'on':''}" onclick="setFilter('${c}')">${c}</button>`).join("")}</div>
+    <div class="card" style="padding:4px 8px;"><table><thead><tr><th>Guest</th><th>Property</th><th>Channel</th><th>Dates</th><th>Amount</th><th>Status</th></tr></thead>
+    <tbody>${rows.map(b=>`<tr><td style="font-weight:600;">${b.g}</td><td>${b.p}</td><td><span class="tag ${chTag(b.ch)}">${b.ch}</span></td><td class="mut">${b.in} – ${b.out}</td><td style="font-weight:600;">${fmt(b.amt)}</td><td><span class="tag ${tagClass(b.st)}">${b.st}</span></td></tr>`).join("")}</tbody></table></div>
+    <div style="color:var(--faint);font-size:12px;margin-top:10px;">${rows.length} bookings · synced from calendar zap</div>
+  </section>`;
+}
+function viewPayouts(){
+  const up=DB.payouts.filter(p=>p.st==="Scheduled"),hist=DB.payouts.filter(p=>p.st==="Paid");
+  const tot=up.reduce((a,p)=>a+p.amt,0);
+  return `<section>
+    <div class="grid g3">${kpi("Scheduled","₹",tot,"next 2 payouts","up","◈")}
+      ${kpi("Paid · June","₹","141300","2 payouts","mut","✓")}
+      ${kpi("Avg payout","₹","71625","last 4","mut","◷")}</div>
+    <div class="sechead"><h2>Upcoming</h2></div>
+    <div class="card" style="padding:6px 0;">${up.map(p=>`<div class="auto"><div class="ico" style="color:var(--gold);">◈</div><div style="flex:1;"><div class="t">${fmt(p.amt)}</div><div class="s">${p.src}</div></div><span class="tag t-blue">${p.d}</span></div>`).join("")}</div>
+    <div class="sechead"><h2>History</h2></div>
+    <div class="card" style="padding:6px 0;">${hist.map(p=>`<div class="auto"><div class="ico" style="color:var(--green);">✓</div><div style="flex:1;"><div class="t">${fmt(p.amt)}</div><div class="s">${p.src} · ${p.d}</div></div><span class="tag t-green">Paid</span></div>`).join("")}</div>
+  </section>`;
+}
+function viewInbox(){
+  return `<section><div class="grid g2" style="align-items:start;">
+    <div class="card" style="padding:6px;">${DB.threads.map((t,i)=>`<div class="thread" onclick="openThread(${i})"><div class="av">${t.g.split(" ").map(x=>x[0]).join("")}</div>
+      <div style="flex:1;min-width:0;"><div style="display:flex;justify-content:space-between;"><span style="font-weight:600;font-size:13px;">${t.g}</span>${t.unread?`<span class="tag t-gold">${t.unread}</span>`:`<span style="color:var(--green);font-size:11px;">Grok</span>`}</div>
+      <div style="color:var(--muted);font-size:12px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.last}</div><div style="color:var(--faint);font-size:11px;">${t.p}</div></div></div>`).join("")}</div>
+    <div class="card" id="thread"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;"><div><div style="font-weight:600;">Rohan Shah</div><div style="color:var(--muted);font-size:12px;">Bandra 2BHK · check-in tomorrow</div></div><span class="tag t-green">Grok auto</span></div>
+      <div class="bubble b-them">Hi! What time can I check in?</div>
+      <div class="bubble b-me">Hi Rohan! Check-in is from 3pm. I'll share the smart-lock code at noon. Need an early check-in?</div>
+      <div class="grokstamp">drafted by Grok · in your tone ✎</div>
+      <div class="bubble b-them">3pm works, thanks!</div>
+      <div style="display:flex;gap:8px;margin-top:12px;"><input class="pinput" placeholder="Reply…"/><button class="btn">Send</button></div>
+    </div></div></section>`;
+}
+function openThread(i){const t=DB.threads[i];document.getElementById("thread").querySelector("div div").textContent=t.g;}
+function viewReviews(){
+  return `<section>${DB.reviews.map((r,i)=>`<div class="card" style="margin-bottom:14px;">
+    <div style="display:flex;justify-content:space-between;"><div><span style="font-weight:600;">${r.g}</span> <span style="color:var(--muted);font-size:12px;">· ${r.p}</span></div><span class="t-gold tag">${"★".repeat(r.rt)}</span></div>
+    <div style="color:var(--muted);font-size:13px;margin:10px 0;">“${r.txt}”</div>
+    <div style="background:var(--card2);border-radius:10px;padding:12px;border-left:3px solid var(--gold);">
+      <div style="font-size:11px;color:var(--gold);margin-bottom:5px;">Suggested reply · your tone</div>
+      <div style="font-size:13px;line-height:1.55;">${r.reply}</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px;"><button class="btn" onclick="this.textContent='Posted ✓';this.disabled=true">Approve & post</button><button class="btn ghost">Edit</button></div>
+  </div>`).join("")}</section>`;
+}
+function viewAutomations(){
+  return `<section>
+    <div class="card" style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+      <div class="ico" style="width:46px;height:46px;border-radius:12px;background:rgba(200,169,110,.16);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:22px;">⚡</div>
+      <div style="flex:1;"><div style="font-weight:600;">Zapier automations</div><div style="color:var(--muted);font-size:13px;">5 of 6 zaps running across 10 properties · last event 2m ago</div></div>
+      <span class="chip live"><span class="pulse"></span>Live</span>
+    </div>
+    <div class="card" style="padding:0;">${DB.automations.map((a,i)=>`<div class="auto"><div class="ico">${a.ic}</div><div style="flex:1;"><div class="t">${a.t}</div><div class="s" id="as${i}">${a.s}</div></div><div class="sw ${a.on?'on':''}" onclick="toggleAuto(${i})"></div></div>`).join("")}</div>
+    <div style="color:var(--faint);font-size:12px;margin-top:12px;">Toggles write to the live zap. Guest replies use Grok; pricing runs daily from web demand signals.</div>
+  </section>`;
+}
+function toggleAuto(i){DB.automations[i].on=!DB.automations[i].on;const sw=document.querySelectorAll(".sw")[i];sw.classList.toggle("on");document.getElementById("as"+i).textContent=DB.automations[i].on?"active":"paused";}
+function viewPricing(){
+  return `<section>${DB.properties.slice(0,5).map((p,i)=>`<div class="card" style="margin-bottom:12px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-weight:600;">${p.n}</div><div style="font-weight:600;color:var(--gold);" id="pr${i}">${fmt(p.adr)}</div></div>
+    <div style="color:var(--muted);font-size:12px;margin:4px 0 10px;">Base ${fmt(Math.round(p.adr*0.85))} · demand multiplier <span id="pm${i}">1.0×</span></div>
+    <input type="range" min="80" max="140" value="100" oninput="reprice(${i},${p.adr},this.value)"/>
+    <div style="display:flex;justify-content:space-between;color:var(--faint);font-size:11px;margin-top:4px;"><span>Off-peak</span><span>Auto · daily</span><span>Peak</span></div>
+  </div>`).join("")}</section>`;
+}
+function reprice(i,adr,v){const m=v/100;document.getElementById("pr"+i).textContent=fmt(Math.round(adr*0.85*m));document.getElementById("pm"+i).textContent=m.toFixed(2)+"×";}
+function viewSettings(){
+  return `<section><div class="grid g2" style="align-items:start;">
+    <div class="card"><div style="font-weight:600;margin-bottom:12px;">Profile</div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;"><div class="av" style="width:46px;height:46px;">MT</div><div><div style="font-weight:600;">Meet</div><div style="color:var(--muted);font-size:12px;">meet@theempirestays.com</div></div></div>
+      <label style="font-size:12px;color:var(--muted);">Display name</label><input class="pinput" value="Meet" style="margin:6px 0 12px;"/>
+      <label style="font-size:12px;color:var(--muted);">Payout account</label><input class="pinput" value="HDFC ••• 4821" style="margin:6px 0 4px;"/>
+    </div>
+    <div class="card"><div style="font-weight:600;margin-bottom:12px;">Security</div>
+      ${["Biometric unlock","TLS + certificate pinning","Two-factor auth"].map((s,i)=>`<div class="auto" style="padding:12px 0;"><div style="flex:1;"><div class="t" style="font-size:13px;">${s}</div><div class="s">${["Face ID / fingerprint","All API traffic encrypted","SMS + authenticator"][i]}</div></div><div class="sw on"></div></div>`).join("")}
+      <div style="color:var(--faint);font-size:11px;margin-top:8px;">Secrets stay server-side. The app never stores API keys.</div>
+    </div>
+  </div></section>`;
+}
+
+let three={};
+function init3D(){
+  const el=document.getElementById("three"); if(!el||!window.THREE) return;
+  const scene=new THREE.Scene();
+  const cam=new THREE.PerspectiveCamera(45,el.clientWidth/el.clientHeight,0.1,100); cam.position.z=4.2;
+  const rnd=new THREE.WebGLRenderer({antialias:true,alpha:true}); rnd.setSize(el.clientWidth,el.clientHeight); rnd.setPixelRatio(Math.min(devicePixelRatio,2)); el.appendChild(rnd.domElement);
+  const geo=new THREE.IcosahedronGeometry(1.5,1);
+  const mesh=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:0x21242d}));
+  const wire=new THREE.LineSegments(new THREE.WireframeGeometry(geo),new THREE.LineBasicMaterial({color:0xc8a96e,transparent:true,opacity:.6}));
+  const grp=new THREE.Group(); grp.add(mesh); grp.add(wire); scene.add(grp);
+  const nodes=new THREE.Group();
+  geo.vertices && geo.vertices.forEach(()=>{});
+  for(let i=0;i<10;i++){const s=new THREE.Mesh(new THREE.SphereGeometry(.06,8,8),new THREE.MeshBasicMaterial({color:0x5dcaa5}));
+    const ph=Math.acos(-1+2*i/10),th=Math.sqrt(10*Math.PI)*ph; s.position.setFromSphericalCoords(1.55,ph,th); nodes.add(s);} grp.add(nodes);
+  three={rnd,scene,cam,grp};
+  (function loop(){ if(!document.getElementById("three")){return;} three.grp.rotation.y+=0.0045; three.grp.rotation.x+=0.0016; rnd.render(scene,cam); requestAnimationFrame(loop);})();
+}
+function countUp(){
+  document.querySelectorAll("[data-count]").forEach(el=>{
+    const t=+el.dataset.count, pre=el.dataset.pre||""; let s=0,step=t/40;
+    const tick=()=>{s+=step; if(s>=t){el.textContent=pre+Math.round(t).toLocaleString("en-IN");}else{el.textContent=pre+Math.round(s).toLocaleString("en-IN");requestAnimationFrame(tick);}}; tick();
+  });
+}
+function setFilter(c){filter=c;render("bookings");}
+function go(r){location.hash=r;}
+function render(route){
+  const R=ROUTES[route]||ROUTES.dashboard;
+  document.getElementById("ttl").textContent=R.t;
+  document.getElementById("sub").textContent=R.s;
+  document.getElementById("view").innerHTML=R.r();
+  document.querySelectorAll("[data-route]").forEach(a=>a.classList.toggle("active",a.dataset.route===route));
+  if(route==="dashboard"){setTimeout(()=>{init3D();countUp();},30);}
+  else{setTimeout(countUp,30);}
+}
+document.querySelectorAll("[data-route]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();location.hash=a.dataset.route;}));
+window.addEventListener("hashchange",()=>render(location.hash.slice(1)||"dashboard"));
+render(location.hash.slice(1)||"dashboard");
+</script>
+</body>
+</html>
