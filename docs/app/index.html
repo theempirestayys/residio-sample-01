@@ -239,10 +239,10 @@ function viewDashboard(){
       <div id="three"></div>
     </div>
     <div class="grid g4" style="margin-top:14px;">
-      ${kpi("Revenue · month","₹","241000","+12% vs last","up","◷")}
-      ${kpi("Occupancy","","${occ}","next 30 days","mut","▦",occ+"%")}
-      ${kpi("Next payout","₹","84000","in 4 days","mut","◈")}
-      ${kpi("Open tasks","","3","1 cleaning due","warn","✓")}
+      ${kpi("Revenue · month",fmt(241000),"+12% vs last","up","◷")}
+      ${kpi("Occupancy",occ+"%","next 30 days","mut","▦")}
+      ${kpi("Next payout",fmt(84000),"in 4 days","mut","◈")}
+      ${kpi("Open tasks","3","1 cleaning due","warn","✓")}
     </div>
     <div class="sechead"><h2>Revenue — last 6 months</h2><span class="more" onclick="go('payouts')">Payouts →</span></div>
     <div class="card">${sparkSVG(DB.revenue)}</div>
@@ -253,9 +253,9 @@ function viewDashboard(){
     </div>
   </section>`;
 }
-function kpi(l,pre,val,d,cls,ic,override){
+function kpi(l,val,d,cls,ic){
   return `<div class="card kpi"><div class="l"><span>${ic}</span>${l}</div>
-    <div class="v"><span class="progress" data-count="${val}" data-pre="${pre}">${override||(pre+"0")}</span></div>
+    <div class="v progress">${val}</div>
     <div class="d ${cls}">${d}</div></div>`;
 }
 function viewProperties(){
@@ -287,9 +287,9 @@ function viewPayouts(){
   const up=DB.payouts.filter(p=>p.st==="Scheduled"),hist=DB.payouts.filter(p=>p.st==="Paid");
   const tot=up.reduce((a,p)=>a+p.amt,0);
   return `<section>
-    <div class="grid g3">${kpi("Scheduled","₹",tot,"next 2 payouts","up","◈")}
-      ${kpi("Paid · June","₹","141300","2 payouts","mut","✓")}
-      ${kpi("Avg payout","₹","71625","last 4","mut","◷")}</div>
+    <div class="grid g3">${kpi("Scheduled",fmt(tot),"next 2 payouts","up","◈")}
+      ${kpi("Paid · June",fmt(141300),"2 payouts","mut","✓")}
+      ${kpi("Avg payout",fmt(71625),"last 4","mut","◷")}</div>
     <div class="sechead"><h2>Upcoming</h2></div>
     <div class="card" style="padding:6px 0;">${up.map(p=>`<div class="auto"><div class="ico" style="color:var(--gold);">◈</div><div style="flex:1;"><div class="t">${fmt(p.amt)}</div><div class="s">${p.src}</div></div><span class="tag t-blue">${p.d}</span></div>`).join("")}</div>
     <div class="sechead"><h2>History</h2></div>
@@ -387,8 +387,7 @@ function render(route){
   document.getElementById("sub").textContent=R.s;
   document.getElementById("view").innerHTML=R.r();
   document.querySelectorAll("[data-route]").forEach(a=>a.classList.toggle("active",a.dataset.route===route));
-  if(route==="dashboard"){setTimeout(()=>{init3D();countUp();},30);}
-  else{setTimeout(countUp,30);}
+  if(route==="dashboard"){setTimeout(init3D,30);}
 }
 document.querySelectorAll("[data-route]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();location.hash=a.dataset.route;}));
 window.addEventListener("hashchange",()=>render(location.hash.slice(1)||"dashboard"));
