@@ -9,6 +9,9 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: write          # lets the built-in GITHUB_TOKEN publish a Release
+
 jobs:
   debug-apk:
     runs-on: ubuntu-latest
@@ -33,9 +36,24 @@ jobs:
       - name: Build debug APK
         run: gradle assembleDebug --no-daemon
 
-      - name: Upload installable APK
+      - name: Upload installable APK (90-day build artifact)
         uses: actions/upload-artifact@v4
         with:
           name: residio-owner-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+
+      - name: Publish APK to a permanent GitHub Release
+        # Free, no subscription, never expires. Updates the "latest-debug" release
+        # in place on every push to main, so the download link is always stable:
+        # https://github.com/theempirestayys/residio-sample-01/releases/latest
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest-debug
+          name: Residio Owner — latest debug build
+          prerelease: true
+          files: app/build/outputs/apk/debug/app-debug.apk
+          body: >
+            Installable debug APK built from `main`. Download `app-debug.apk`,
+            open it on an Android phone, allow "install from unknown apps".
+            Demo login: master / residio@master
