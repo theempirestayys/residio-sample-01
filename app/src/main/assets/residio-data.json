@@ -1,0 +1,325 @@
+{
+  "org": {
+    "name": "Residio Hospitality Pvt. Ltd.",
+    "brand": "Residio by The Empire Stays",
+    "master_id": "MASTER-0001",
+    "city": "Mumbai",
+    "currency": "₹"
+  },
+  "users": [
+    {
+      "id": "MASTER-0001",
+      "role": "master",
+      "name": "J. Iyer",
+      "title": "Master Admin · CEO Office",
+      "email": "master@theempirestayys.com",
+      "username": "master",
+      "password": "residio@master",
+      "phone": "+91 90000 00001",
+      "initials": "JI"
+    },
+    {
+      "id": "OWN-1001",
+      "role": "owner",
+      "name": "Rajiv Mehta",
+      "title": "Property Owner",
+      "email": "rajiv.mehta@gmail.com",
+      "username": "rajiv",
+      "password": "owner@1001",
+      "phone": "+91 98200 11001",
+      "initials": "RM",
+      "nri": false
+    },
+    {
+      "id": "OWN-1002",
+      "role": "owner",
+      "name": "Anita Desai",
+      "title": "Property Owner · NRI",
+      "email": "anita.desai@outlook.com",
+      "username": "anita",
+      "password": "owner@1002",
+      "phone": "+44 7700 900123",
+      "initials": "AD",
+      "nri": true
+    },
+    {
+      "id": "STF-2001",
+      "role": "staff",
+      "name": "Suresh Kamble",
+      "title": "Operations Executive",
+      "email": "suresh.k@theempirestayys.com",
+      "username": "suresh",
+      "password": "staff@2001",
+      "phone": "+91 99300 22001",
+      "initials": "SK"
+    },
+    {
+      "id": "STF-2002",
+      "role": "staff",
+      "name": "Priya Nair",
+      "title": "Guest Experience Lead",
+      "email": "priya.n@theempirestayys.com",
+      "username": "priya",
+      "password": "staff@2002",
+      "phone": "+91 99300 22002",
+      "initials": "PN"
+    }
+  ],
+  "properties": [
+    {
+      "id": "PROP-501",
+      "name": "Sea Breeze · Bandra 2BHK",
+      "owner_id": "OWN-1001",
+      "city": "Mumbai",
+      "type": "2BHK",
+      "status": "live",
+      "adr": 8800,
+      "occupancy": 0.74,
+      "rating": 4.9,
+      "am_id": "STF-2002"
+    },
+    {
+      "id": "PROP-502",
+      "name": "Skyline Suite · Lower Parel",
+      "owner_id": "OWN-1001",
+      "city": "Mumbai",
+      "type": "1BHK",
+      "status": "live",
+      "adr": 7200,
+      "occupancy": 0.69,
+      "rating": 4.8,
+      "am_id": "STF-2002"
+    },
+    {
+      "id": "PROP-503",
+      "name": "Palm Court Villa · Goa",
+      "owner_id": "OWN-1002",
+      "city": "Goa",
+      "type": "Villa",
+      "status": "live",
+      "adr": 19500,
+      "occupancy": 0.71,
+      "rating": 4.9,
+      "am_id": "STF-2001"
+    },
+    {
+      "id": "PROP-504",
+      "name": "Cyber Greens · Gurgaon",
+      "owner_id": "OWN-1002",
+      "city": "Delhi NCR",
+      "type": "3BHK",
+      "status": "onboarding",
+      "adr": 11200,
+      "occupancy": 0,
+      "rating": 0,
+      "am_id": "STF-2001"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "BKG-9001",
+      "property_id": "PROP-501",
+      "guest": "M. Fernandes",
+      "platform": "Airbnb",
+      "checkin": "2026-07-02",
+      "checkout": "2026-07-06",
+      "nights": 4,
+      "gross": 35200,
+      "status": "confirmed"
+    },
+    {
+      "id": "BKG-9002",
+      "property_id": "PROP-501",
+      "guest": "K. Sharma",
+      "platform": "Booking.com",
+      "checkin": "2026-07-09",
+      "checkout": "2026-07-12",
+      "nights": 3,
+      "gross": 26400,
+      "status": "confirmed"
+    },
+    {
+      "id": "BKG-9003",
+      "property_id": "PROP-503",
+      "guest": "The Roy Family",
+      "platform": "MakeMyTrip",
+      "checkin": "2026-07-04",
+      "checkout": "2026-07-09",
+      "nights": 5,
+      "gross": 97500,
+      "status": "in_stay"
+    },
+    {
+      "id": "BKG-9004",
+      "property_id": "PROP-502",
+      "guest": "A. Khan",
+      "platform": "Airbnb",
+      "checkin": "2026-07-15",
+      "checkout": "2026-07-18",
+      "nights": 3,
+      "gross": 21600,
+      "status": "confirmed"
+    },
+    {
+      "id": "BKG-9005",
+      "property_id": "PROP-503",
+      "guest": "L. Pinto",
+      "platform": "Direct",
+      "checkin": "2026-07-20",
+      "checkout": "2026-07-24",
+      "nights": 4,
+      "gross": 78000,
+      "status": "pending"
+    }
+  ],
+  "statements": [
+    {
+      "id": "STM-501-06",
+      "property_id": "PROP-501",
+      "month": "2026-06",
+      "gross": 198000,
+      "platform_fees": 19800,
+      "cleaning": 16800,
+      "consumables": 4200,
+      "net": 157200,
+      "owner_share": 94320,
+      "mgmt_fee": 62880,
+      "gst": 11318,
+      "paid": true,
+      "payout_date": "2026-07-10"
+    },
+    {
+      "id": "STM-502-06",
+      "property_id": "PROP-502",
+      "month": "2026-06",
+      "gross": 132000,
+      "platform_fees": 13200,
+      "cleaning": 12600,
+      "consumables": 3500,
+      "net": 102700,
+      "owner_share": 61620,
+      "mgmt_fee": 41080,
+      "gst": 7394,
+      "paid": true,
+      "payout_date": "2026-07-10"
+    },
+    {
+      "id": "STM-503-06",
+      "property_id": "PROP-503",
+      "month": "2026-06",
+      "gross": 410000,
+      "platform_fees": 41000,
+      "cleaning": 24000,
+      "consumables": 6800,
+      "net": 338200,
+      "owner_share": 202920,
+      "mgmt_fee": 135280,
+      "gst": 24350,
+      "paid": true,
+      "payout_date": "2026-07-10"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "TSK-7001",
+      "property_id": "PROP-501",
+      "type": "turnover",
+      "title": "Checkout turnover · 20-pt",
+      "due": "2026-07-06",
+      "status": "scheduled",
+      "staff_id": "STF-2001",
+      "priority": "normal"
+    },
+    {
+      "id": "TSK-7002",
+      "property_id": "PROP-503",
+      "type": "checkin",
+      "title": "Guest check-in · Roy Family",
+      "due": "2026-07-04",
+      "status": "in_progress",
+      "staff_id": "STF-2002",
+      "priority": "high"
+    },
+    {
+      "id": "TSK-7003",
+      "property_id": "PROP-502",
+      "type": "turnover",
+      "title": "Pre-arrival staging",
+      "due": "2026-07-15",
+      "status": "scheduled",
+      "staff_id": "STF-2001",
+      "priority": "normal"
+    },
+    {
+      "id": "TSK-7004",
+      "property_id": "PROP-504",
+      "type": "onboarding",
+      "title": "Photoshoot + smart-lock install",
+      "due": "2026-07-08",
+      "status": "scheduled",
+      "staff_id": "STF-2001",
+      "priority": "high"
+    }
+  ],
+  "tickets": [
+    {
+      "id": "TKT-8001",
+      "property_id": "PROP-501",
+      "category": "maintenance",
+      "title": "AC servicing — bedroom unit",
+      "priority": "normal",
+      "status": "open",
+      "staff_id": "STF-2001",
+      "opened": "2026-06-28",
+      "cost": 1800
+    },
+    {
+      "id": "TKT-8002",
+      "property_id": "PROP-503",
+      "category": "emergency",
+      "title": "Water leak — guest bathroom",
+      "priority": "high",
+      "status": "in_progress",
+      "staff_id": "STF-2001",
+      "opened": "2026-07-03",
+      "cost": 4200
+    },
+    {
+      "id": "TKT-8003",
+      "property_id": "PROP-502",
+      "category": "damage",
+      "title": "Replace chipped crockery",
+      "priority": "low",
+      "status": "resolved",
+      "staff_id": "STF-2002",
+      "opened": "2026-06-20",
+      "cost": 950
+    }
+  ],
+  "activity": [
+    {
+      "id": "ACT-1",
+      "ts": "2026-06-30T09:12:00",
+      "text": "Payout ₹94,320 sent to Rajiv Mehta (Sea Breeze)",
+      "role": "master"
+    },
+    {
+      "id": "ACT-2",
+      "ts": "2026-06-30T08:40:00",
+      "text": "New booking · Airbnb · Sea Breeze · 2–6 Jul",
+      "role": "owner"
+    },
+    {
+      "id": "ACT-3",
+      "ts": "2026-06-29T19:05:00",
+      "text": "Ticket escalated · Water leak · Palm Court Villa",
+      "role": "staff"
+    },
+    {
+      "id": "ACT-4",
+      "ts": "2026-06-29T14:22:00",
+      "text": "5★ review received · Skyline Suite",
+      "role": "owner"
+    }
+  ]
+}

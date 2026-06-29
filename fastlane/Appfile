@@ -1,0 +1,2 @@
+json_key_file("play-service-account.json")   # Google Play service-account key (Step 3)
+package_name("com.theempirestays.residio")

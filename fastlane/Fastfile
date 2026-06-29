@@ -1,0 +1,32 @@
+# Residio Owner — release lanes
+# CI builds the signed .aab with Gradle, then these lanes upload it to a Play track.
+
+default_platform(:android)
+
+AAB = "app/build/outputs/bundle/release/app-release.aab"
+
+platform :android do
+  desc "Upload the already-built AAB to the Internal testing track"
+  lane :internal do
+    upload_to_play_store(
+      track: "internal",
+      aab: AAB,
+      release_status: "completed",
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+
+  desc "Promote/upload the AAB to Production (use only after closed testing is cleared)"
+  lane :production do
+    upload_to_play_store(
+      track: "production",
+      aab: AAB,
+      release_status: "completed",
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+end

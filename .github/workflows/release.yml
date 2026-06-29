@@ -1,0 +1,59 @@
+name: Build & Release (Android)
+
+# Builds a signed .aab and ships it to Google Play whenever you push a version tag like v1.0.0.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:        # lets you run it manually from the Actions tab too
+
+jobs:
+  build-and-ship:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Gradle 8.7 (no committed wrapper jar needed)
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Decode upload keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > residio-upload.jks
+
+      - name: Write keystore.properties
+        run: |
+          cat > keystore.properties <<PROPS
+          storeFile=../residio-upload.jks
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          PROPS
+
+      - name: Write Play service-account key
+        run: echo '${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}' > play-service-account.json
+
+      - name: Build signed AAB
+        run: gradle bundleRelease --no-daemon
+
+      - name: Install Fastlane
+        run: gem install fastlane --no-document
+
+      - name: Upload to Play (internal track)
+        run: fastlane internal
+
+      - name: Archive AAB as build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: residio-owner-aab
+          path: app/build/outputs/bundle/release/app-release.aab

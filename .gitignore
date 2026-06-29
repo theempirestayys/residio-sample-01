@@ -1,0 +1,19 @@
+# Build
+.gradle/
+build/
+app/build/
+captures/
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# Local config & SECRETS — never commit these
+local.properties
+keystore.properties
+*.keystore
+*.jks
+play-service-account.json
+fastlane/report.xml
+fastlane/Preview.html
