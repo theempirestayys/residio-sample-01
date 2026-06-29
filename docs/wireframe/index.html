@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Residio Owners — App Wireframe v1</title>
+<style>
+  :root{
+    --bg:#0e0f12; --panel:#16181d; --card:#1d2026; --line:#2a2e36;
+    --ink:#f3f1ec; --muted:#9aa0ab; --faint:#6b7280;
+    --gold:#c8a96e; --green:#5dcaa5; --amber:#ef9f27; --blue:#7fa8e0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;}
+  body{background:var(--bg);color:var(--ink);padding:32px 16px 64px;line-height:1.5;}
+  .head{max-width:1100px;margin:0 auto 28px;}
+  .head h1{font-size:22px;font-weight:600;letter-spacing:.2px;}
+  .head p{color:var(--muted);font-size:14px;margin-top:6px;max-width:680px;}
+  .tag{display:inline-flex;align-items:center;gap:6px;background:rgba(200,169,110,.14);color:var(--gold);
+       font-size:12px;padding:4px 10px;border-radius:20px;margin-top:12px;}
+  .grid{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:22px;justify-content:center;}
+  .phone{width:300px;background:var(--panel);border:1px solid var(--line);border-radius:28px;
+         padding:16px;display:flex;flex-direction:column;gap:13px;min-height:600px;}
+  .bar{display:flex;justify-content:space-between;font-size:11px;color:var(--faint);}
+  .scrnname{font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;}
+  .row{display:flex;align-items:center;gap:10px;}
+  .between{display:flex;align-items:center;justify-content:space-between;}
+  .av{width:34px;height:34px;border-radius:50%;background:rgba(200,169,110,.16);color:var(--gold);
+      display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;}
+  .pill{display:flex;align-items:center;gap:6px;background:var(--card);border-radius:9px;padding:9px 11px;font-size:13px;}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .mc{background:var(--card);border-radius:10px;padding:11px;}
+  .mc .l{font-size:12px;color:var(--muted);}
+  .mc .v{font-size:18px;font-weight:600;margin-top:3px;}
+  .mc .d{font-size:11px;margin-top:2px;}
+  .up{color:var(--green);} .warn{color:var(--amber);} .mut{color:var(--muted);}
+  .list{display:flex;flex-direction:column;gap:7px;}
+  .item{display:flex;align-items:center;gap:9px;background:var(--card);border-radius:9px;padding:9px 11px;font-size:13px;}
+  .item .t{font-weight:600;} .item .s{color:var(--muted);font-size:12px;}
+  .dot{width:18px;height:18px;border-radius:5px;display:inline-block;}
+  .auto{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:11px;padding:11px;}
+  .auto .ic{width:30px;height:30px;border-radius:8px;background:rgba(127,168,224,.14);color:#9cc0ee;
+            display:flex;align-items:center;justify-content:center;font-size:15px;}
+  .on{background:rgba(93,202,165,.16);color:var(--green);font-size:11px;padding:3px 9px;border-radius:20px;}
+  .off{background:transparent;color:var(--faint);font-size:11px;padding:3px 9px;border-radius:20px;border:1px solid var(--line);}
+  .nav{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:11px;margin-top:auto;
+       color:var(--faint);font-size:10px;text-align:center;}
+  .nav .a{color:var(--gold);}
+  .nav i{display:block;font-size:18px;margin-bottom:3px;}
+  .btn{background:var(--gold);color:#1a1408;border:none;border-radius:11px;padding:13px;font-size:14px;font-weight:600;width:100%;}
+  .ghost{background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:11px;padding:13px;font-size:14px;width:100%;}
+  .inp{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--muted);font-size:13px;}
+  .bubble{max-width:80%;padding:9px 12px;border-radius:13px;font-size:13px;}
+  .bubble.them{background:var(--card);align-self:flex-start;border-top-left-radius:4px;}
+  .bubble.me{background:rgba(200,169,110,.16);color:var(--ink);align-self:flex-end;border-top-right-radius:4px;}
+  .grokn{font-size:11px;color:var(--gold);align-self:flex-end;}
+  .foot{max-width:1100px;margin:34px auto 0;color:var(--faint);font-size:12px;text-align:center;}
+</style>
+</head>
+<body>
+  <div class="head">
+    <h1>Residio Owners — app wireframe v1</h1>
+    <p>A fresh, native-feeling owner app where the automations are first-class: owners see every Zapier
+       zap running and toggle it per property. Built mobile-first, dark theme, gold accent.</p>
+    <span class="tag">● Zapier-driven · Grok replies · daily pricing · calendar sync · tone-matched reviews</span>
+  </div>
+
+  <div class="grid">
+
+    <!-- LOGIN -->
+    <div class="phone">
+      <div class="bar"><span>9:41</span><span>● ● ●</span></div>
+      <div style="text-align:center;margin-top:40px;">
+        <div class="av" style="width:56px;height:56px;font-size:22px;margin:0 auto 14px;">R</div>
+        <div style="font-size:20px;font-weight:600;">Residio Owners</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:4px;">Your portfolio, one tap away</div>
+      </div>
+      <div class="list" style="margin-top:26px;">
+        <div class="inp">Phone or email</div>
+        <div class="inp">Password</div>
+        <button class="btn">Sign in</button>
+        <button class="ghost">Use one-time code</button>
+      </div>
+      <div style="text-align:center;font-size:11px;color:var(--faint);margin-top:6px;">Secured with TLS · biometric unlock</div>
+      <div class="scrnname" style="margin-top:auto;text-align:center;">Login</div>
+    </div>
+
+    <!-- HOME -->
+    <div class="phone">
+      <div class="bar"><span>9:41</span><span>● ● ●</span></div>
+      <div class="between">
+        <div><div style="font-size:13px;color:var(--muted);">Good morning</div><div style="font-size:18px;font-weight:600;">Meet</div></div>
+        <div class="av">◔</div>
+      </div>
+      <div class="pill"><span>🏢</span><span style="font-weight:600;">All properties</span><span class="mut">· 10</span><span style="margin-left:auto;color:var(--faint);">▾</span></div>
+      <div class="cards">
+        <div class="mc"><div class="l">This month</div><div class="v">₹2.41L</div><div class="d up">+12% vs last</div></div>
+        <div class="mc"><div class="l">Occupancy</div><div class="v">78%</div><div class="d mut">next 30 days</div></div>
+        <div class="mc"><div class="l">Next payout</div><div class="v">₹84k</div><div class="d mut">in 4 days</div></div>
+        <div class="mc"><div class="l">Open tasks</div><div class="v">3</div><div class="d warn">1 cleaning due</div></div>
+      </div>
+      <div><div style="font-size:12px;color:var(--muted);margin-bottom:6px;">Today</div>
+        <div class="list">
+          <div class="item"><span class="dot" style="background:var(--green);"></span><span class="t">Check-in</span><span class="s">Bandra 2BHK · 3pm</span></div>
+          <div class="item"><span class="dot" style="background:var(--line);"></span><span class="t">Checkout</span><span class="s">Thane Studio · 11am</span></div>
+        </div>
+      </div>
+      <div class="nav">
+        <span class="a"><i>⌂</i>Home</span><span><i>▦</i>Bookings</span><span><i>◈</i>Payouts</span><span><i>✉</i>Inbox</span><span><i>⚡</i>Auto</span>
+      </div>
+      <div class="scrnname" style="text-align:center;">Home</div>
+    </div>
+
+    <!-- BOOKINGS -->
+    <div class="phone">
+      <div class="bar"><span>9:41</span><span>● ● ●</span></div>
+      <div class="between"><div style="font-size:18px;font-weight:600;">Bookings</div><span class="pill" style="padding:6px 10px;">⌕ Search</span></div>
+      <div class="list">
+        <div class="item" style="flex-direction:column;align-items:stretch;gap:5px;">
+          <div class="between"><span class="t">Bandra 2BHK</span><span class="on">Confirmed</span></div>
+          <div class="s">Rohan S. · 12–15 Jul · ₹31,500 · Airbnb</div>
+        </div>
+        <div class="item" style="flex-direction:column;align-items:stretch;gap:5px;">
+          <div class="between"><span class="t">Thane Studio</span><span class="on">Confirmed</span></div>
+          <div class="s">Priya M. · 14–16 Jul · ₹12,800 · MMT</div>
+        </div>
+        <div class="item" style="flex-direction:column;align-items:stretch;gap:5px;">
+          <div class="between"><span class="t">Dombivli 1BHK</span><span class="off">Inquiry</span></div>
+          <div class="s">Guest · 20 Jul · auto-reply sent by Grok</div>
+        </div>
+      </div>
+      <div class="nav">
+        <span><i>⌂</i>Home</span><span class="a"><i>▦</i>Bookings</span><span><i>◈</i>Payouts</span><span><i>✉</i>Inbox</span><span><i>⚡</i>Auto</span>
+      </div>
+      <div class="scrnname" style="text-align:center;">Bookings</div>
+    </div>
+
+    <!-- INBOX / GROK -->
+    <div class="phone">
+      <div class="bar"><span>9:41</span><span>● ● ●</span></div>
+      <div class="between"><div style="font-size:18px;font-weight:600;">Rohan S.</div><span class="on">Grok auto</span></div>
+      <div class="s" style="color:var(--muted);">Bandra 2BHK · check-in tomorrow</div>
+      <div class="list" style="gap:10px;margin-top:6px;">
+        <div class="bubble them">Hi! What time can I check in?</div>
+        <div class="bubble me">Hi Rohan! Check-in is from 3pm. I'll share the smart-lock code at noon. Need an early check-in?</div>
+        <div class="grokn">drafted by Grok · in your tone ✎</div>
+        <div class="bubble them">3pm works, thanks!</div>
+      </div>
+      <div class="inp" style="margin-top:auto;display:flex;justify-content:space-between;">Reply… <span style="color:var(--gold);">Send</span></div>
+      <div class="nav">
+        <span><i>⌂</i>Home</span><span><i>▦</i>Bookings</span><span><i>◈</i>Payouts</span><span class="a"><i>✉</i>Inbox</span><span><i>⚡</i>Auto</span>
+      </div>
+      <div class="scrnname" style="text-align:center;">Inbox · Grok</div>
+    </div>
+
+    <!-- AUTOMATIONS / ZAPIER -->
+    <div class="phone">
+      <div class="bar"><span>9:41</span><span>● ● ●</span></div>
+      <div class="between"><div style="font-size:18px;font-weight:600;">Automations</div><span class="tag" style="margin:0;">⚡ Zapier</span></div>
+      <div class="s" style="color:var(--muted);">5 zaps running across 10 properties</div>
+      <div class="list">
+        <div class="auto"><span class="ic">⌯</span><div style="flex:1;"><div class="t" style="font-size:13px;">Guest replies</div><div class="s">Grok · replied 2m ago</div></div><span class="on">On</span></div>
+        <div class="auto"><span class="ic">₹</span><div style="flex:1;"><div class="t" style="font-size:13px;">Dynamic pricing</div><div class="s">daily · synced 6am</div></div><span class="on">On</span></div>
+        <div class="auto"><span class="ic">▦</span><div style="flex:1;"><div class="t" style="font-size:13px;">Calendar sync</div><div class="s">Airbnb · MMT · Booking</div></div><span class="on">On</span></div>
+        <div class="auto"><span class="ic">★</span><div style="flex:1;"><div class="t" style="font-size:13px;">Review replies</div><div class="s">your tone · 4 pending</div></div><span class="on">On</span></div>
+        <div class="auto"><span class="ic">%</span><div style="flex:1;"><div class="t" style="font-size:13px;">Promotions</div><div class="s">paused</div></div><span class="off">Off</span></div>
+      </div>
+      <div class="nav">
+        <span><i>⌂</i>Home</span><span><i>▦</i>Bookings</span><span><i>◈</i>Payouts</span><span><i>✉</i>Inbox</span><span class="a"><i>⚡</i>Auto</span>
+      </div>
+      <div class="scrnname" style="text-align:center;">Automations</div>
+    </div>
+
+  </div>
+
+  <div class="foot">Residio Owners · wireframe v1 · 2026-06-30 · concept only, not final UI</div>
+</body>
+</html>
