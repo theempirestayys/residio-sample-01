@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Airsynk — Residio Hospitality Intelligence</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<div id="dc-root"></div>
+<script id="dc-tpl" type="text/template">
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef1ec;color:#15302a;font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ::selection{background:#e7cd86;color:#15302a}
+  input,select,button,textarea{font-family:inherit}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:#b8893f !important}
+  .sc-scroll::-webkit-scrollbar{height:9px;width:9px}
+  .sc-scroll::-webkit-scrollbar-thumb{background:rgba(21,48,42,.16);border-radius:9px}
+  .sc-scroll::-webkit-scrollbar-track{background:transparent}
+</style>
+</helmet>
+
+<!-- ============ LOGIN ============ -->
+<sc-if value="{{ showLogin }}" hint-placeholder-val="{{ true }}">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:30px;background:radial-gradient(130% 120% at 75% 0%,#1c4a3b,#15302a 55%,#0c211b)">
+  <div style="width:100%;max-width:420px">
+    <div style="display:flex;align-items:center;gap:13px;justify-content:center;margin-bottom:28px">
+      <div style="width:44px;height:44px;border-radius:13px;background:linear-gradient(140deg,#e7cd86,#c9a24b 55%,#9a7424);display:flex;align-items:center;justify-content:center;color:#15302a;font-weight:800;font-size:24px">E</div>
+      <div style="line-height:1.05"><div style="font-weight:700;font-size:17px;letter-spacing:.13em;color:#f6f1e7">THE EMPIRE STAYYS</div><div style="font-weight:600;font-size:9px;letter-spacing:.32em;color:#e7cd86;margin-top:3px">OPERATIONS CLOUD · v2</div></div>
+    </div>
+    <div style="background:#fff;border-radius:26px;padding:38px;box-shadow:0 50px 100px -40px rgba(0,0,0,.55)">
+      <h1 style="margin:0 0 6px;font-weight:400;font-size:27px;letter-spacing:-.02em">Sign in</h1>
+      <p style="margin:0 0 26px;font-size:14px;font-weight:300;color:rgba(21,48,42,.6)">Manage stays, channels, finance and guests.</p>
+      <label style="display:block;font-size:11.5px;font-weight:700;letter-spacing:.06em;color:rgba(21,48,42,.55);margin-bottom:7px">USERNAME</label>
+      <input value="{{ loginUser }}" onInput="{{ onLoginUser }}" placeholder="Meet Patel" style="width:100%;padding:14px 16px;border-radius:13px;border:1px solid rgba(21,48,42,.15);font-size:15px;margin-bottom:16px"/>
+      <label style="display:block;font-size:11.5px;font-weight:700;letter-spacing:.06em;color:rgba(21,48,42,.55);margin-bottom:7px">PASSWORD</label>
+      <input type="password" value="{{ loginPass }}" onInput="{{ onLoginPass }}" onKeyDown="{{ onLoginKey }}" placeholder="••••••••" style="width:100%;padding:14px 16px;border-radius:13px;border:1px solid rgba(21,48,42,.15);font-size:15px;margin-bottom:6px"/>
+      <div style="{{ loginErrStyle }}">{{ loginErr }}</div>
+      <button onClick="{{ loginOwner }}" style="cursor:pointer;width:100%;margin:18px 0 0;padding:15px;border-radius:13px;border:none;background:linear-gradient(120deg,#c9a24b,#9a7424);color:#fff;font-weight:600;font-size:15px">Sign in →</button>
+      <div style="display:flex;align-items:center;gap:12px;margin:18px 0"><div style="flex:1;height:1px;background:rgba(21,48,42,.12)"></div><span style="font-size:12px;color:rgba(21,48,42,.4)">or</span><div style="flex:1;height:1px;background:rgba(21,48,42,.12)"></div></div>
+      <button onClick="{{ loginGoogle }}" style="cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:11px;padding:13px;border-radius:13px;border:1px solid rgba(21,48,42,.16);background:#fff;color:#15302a;font-weight:600;font-size:14.5px"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Continue with Google</button>
+      <p style="text-align:center;margin:18px 0 0;font-size:12px;color:rgba(21,48,42,.45)">Private workspace · authorised access only</p>
+    </div>
+    <p style="text-align:center;margin:20px 0 0;font-size:12px;color:rgba(246,241,231,.45)">Prototype · not connected to live OTA data</p>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ APP ============ -->
+<sc-if value="{{ showApp }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;min-height:100vh">
+  <!-- SIDEBAR -->
+  <aside class="sc-scroll" style="width:244px;flex-shrink:0;background:#fff;border-right:1px solid rgba(21,48,42,.08);padding:22px 16px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;gap:11px;padding:4px 8px 20px">
+      <div style="width:38px;height:38px;border-radius:11px;background:linear-gradient(140deg,#e7cd86,#c9a24b 55%,#9a7424);display:flex;align-items:center;justify-content:center;color:#15302a;font-weight:800;font-size:20px">E</div>
+      <div style="line-height:1.05"><div style="font-weight:700;font-size:13px;letter-spacing:.08em;color:#15302a">EMPIRE STAYYS</div><div style="font-weight:600;font-size:8px;letter-spacing:.26em;color:#b8893f;margin-top:2px">OPS CLOUD</div></div>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:3px">
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="9">
+        <button onClick="{{ n.onClick }}" style="{{ n.style }}"><span>{{ n.label }}</span><span style="{{ n.badgeStyle }}">{{ n.badge }}</span></button>
+      </sc-for>
+    </nav>
+    <div style="margin-top:auto;padding-top:16px;border-top:1px solid rgba(21,48,42,.08)">
+      <div style="display:flex;align-items:center;gap:11px;padding:6px 8px">
+        <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(150deg,#c9a24b,#9a7424);display:flex;align-items:center;justify-content:center;font-weight:700;color:#15302a">M</div>
+        <div style="line-height:1.2"><div style="font-weight:600;font-size:14px">{{ userName }}</div><div style="font-size:11px;color:rgba(21,48,42,.5)">{{ userRole }}</div></div>
+      </div>
+      <button onClick="{{ doLogout }}" style="cursor:pointer;width:100%;margin-top:8px;padding:10px;border-radius:10px;border:1px solid rgba(21,48,42,.14);background:none;color:rgba(21,48,42,.65);font-size:13px;font-weight:500">Sign out</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column">
+    <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 32px;background:rgba(238,241,236,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(21,48,42,.07);position:sticky;top:0;z-index:30">
+      <div><h1 style="margin:0;font-weight:400;font-size:25px;letter-spacing:-.02em">{{ viewTitle }}</h1><div style="font-size:13px;font-weight:300;color:rgba(21,48,42,.55);margin-top:2px">{{ viewSub }}</div></div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <select value="{{ period }}" onChange="{{ onPeriod }}" style="cursor:pointer;padding:11px 16px;border-radius:12px;border:1px solid rgba(184,137,63,.4);background:rgba(184,137,63,.07);font-weight:600;font-size:13.5px;color:#15302a">
+          <sc-for list="{{ periodOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+        </select>
+        <select value="{{ propFilter }}" onChange="{{ onPropFilter }}" style="cursor:pointer;padding:11px 16px;border-radius:12px;border:1px solid rgba(184,137,63,.4);background:rgba(184,137,63,.07);font-weight:600;font-size:13.5px;color:#15302a">
+          <sc-for list="{{ propFilterOpts }}" as="o" hint-placeholder-count="9"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+        </select>
+        <button onClick="{{ syncAll }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:12px;border:1px solid rgba(21,48,42,.14);background:#fff;font-weight:600;font-size:13.5px;color:#15302a">⟳ Sync all</button>
+        <!-- New booking button removed: panel boots straight into the dashboard -->
+
+      </div>
+    </header>
+
+    <div class="sc-scroll" style="padding:30px 32px;flex:1">
+
+      <!-- ===== DASHBOARD ===== -->
+      <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+        <div style="position:relative;overflow:hidden;border-radius:24px;padding:30px 32px;margin-bottom:16px;background:linear-gradient(115deg,#15302a,#1c4a3b 65%,#236046);color:#f6f1e7;box-shadow:0 22px 54px -32px rgba(21,48,42,.55)">
+          <div style="position:absolute;top:-70px;right:-20px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,75,.32),transparent 66%);filter:blur(16px)"></div>
+          <div style="position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:26px">
+            <div>
+              <div style="font-size:12px;font-weight:600;letter-spacing:.05em;color:rgba(246,241,231,.62)">Revenue · {{ heroPeriodLabel }}</div>
+              <div style="font-weight:300;font-size:clamp(40px,5.4vw,62px);line-height:1;margin-top:8px;letter-spacing:-.02em">{{ hero.revenue }}</div>
+              <div style="font-size:13px;color:rgba(246,241,231,.6);margin-top:9px">Annual run-rate <b style="color:#e7cd86;font-weight:600">{{ hero.arr }}</b> · live from confirmed bookings</div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:13px 17px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);min-width:92px"><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:rgba(246,241,231,.6)">ADR</span><span style="font-weight:600;font-size:19px;color:#f1dca0">{{ hero.adr }}</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px;padding:13px 17px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);min-width:92px"><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:rgba(246,241,231,.6)">RevPAR</span><span style="font-weight:600;font-size:19px;color:#f1dca0">{{ hero.revpar }}</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px;padding:13px 17px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);min-width:92px"><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:rgba(246,241,231,.6)">EBITDA</span><span style="font-weight:600;font-size:19px;color:#f1dca0">{{ hero.ebitda }}</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px;padding:13px 17px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);min-width:92px"><span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:rgba(246,241,231,.6)">OCCUPANCY</span><span style="font-weight:600;font-size:19px;color:#f1dca0">{{ hero.occ }}</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-bottom:16px">
+          <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+            <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:22px;box-shadow:0 1px 2px rgba(21,48,42,.04),0 14px 36px -28px rgba(21,48,42,.3)">
+              <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:11.5px;font-weight:600;letter-spacing:.06em;color:rgba(21,48,42,.5)">{{ k.label }}</div><span style="{{ k.trendStyle }}">{{ k.trend }}</span></div>
+              <div style="font-weight:300;font-size:34px;color:#15302a;margin-top:12px;line-height:1">{{ k.value }}</div>
+              <div style="font-size:12.5px;font-weight:500;color:rgba(21,48,42,.5);margin-top:6px">{{ k.sub }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:18px;margin-bottom:18px">
+          <!-- revenue chart -->
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><h2 style="margin:0;font-weight:600;font-size:16px">Revenue trend</h2><span style="font-size:12px;font-weight:500;color:rgba(21,48,42,.45)">Last 6 months · ₹</span></div>
+            <div style="font-weight:300;font-size:30px;margin-bottom:18px">{{ revTotal }} <span style="font-size:13px;font-weight:600;color:#1f7a52">{{ revTrend }}</span></div>
+            <div style="display:flex;align-items:flex-end;gap:14px;height:160px;padding-top:10px">
+              <sc-for list="{{ revBars }}" as="b" hint-placeholder-count="6">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end">
+                  <div style="font-size:10.5px;font-weight:600;color:rgba(21,48,42,.5)">{{ b.short }}</div>
+                  <div style="{{ b.barStyle }}"></div>
+                  <div style="font-size:11px;font-weight:600;color:rgba(21,48,42,.55)">{{ b.label }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <!-- channel mix -->
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <h2 style="margin:0 0 18px;font-weight:600;font-size:16px">Channel mix</h2>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{ channelMix }}" as="c" hint-placeholder-count="4">
+                <div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><span style="width:10px;height:10px;border-radius:3px;background:{{ c.color }}"></span>{{ c.name }}</span><span style="font-size:12.5px;font-weight:600;color:rgba(21,48,42,.55)">{{ c.pct }}%</span></div>
+                  <div style="height:8px;border-radius:6px;background:rgba(21,48,42,.06);overflow:hidden"><div style="{{ c.barStyle }}"></div></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:18px">
+          <!-- upcoming -->
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px"><h2 style="margin:0;font-weight:600;font-size:16px">Upcoming check-ins</h2><button onClick="{{ goReservations }}" style="cursor:pointer;border:none;background:none;color:#b8893f;font-weight:600;font-size:13px">All →</button></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ upcoming }}" as="r" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:14px;background:#f7f8f5;border:1px solid rgba(21,48,42,.05)">
+                  <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(150deg,#1c4a3b,#13312a);display:flex;align-items:center;justify-content:center;font-weight:700;color:#e7cd86;font-size:14px">{{ r.initial }}</div>
+                  <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">{{ r.guest }}</div><div style="font-size:12px;font-weight:300;color:rgba(21,48,42,.55)">{{ r.propertyName }} · {{ r.dateRange }}</div></div>
+                  <span style="{{ r.channelStyle }}">{{ r.channel }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <!-- ratings + tasks -->
+          <div style="display:flex;flex-direction:column;gap:18px">
+            <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+              <h2 style="margin:0 0 14px;font-weight:600;font-size:16px">Guest rating</h2>
+              <div style="display:flex;align-items:baseline;gap:10px"><div style="font-weight:300;font-size:44px;color:#b8893f;line-height:1">4.75</div><div style="color:#c9a24b;font-size:18px;letter-spacing:2px">★★★★★</div></div>
+              <div style="font-size:12.5px;color:rgba(21,48,42,.5);margin-top:6px">155 reviews across 8 stays</div>
+            </div>
+            <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px"><h2 style="margin:0;font-weight:600;font-size:16px">Today's tasks</h2><span style="font-size:12px;font-weight:600;color:#b8893f">{{ openTasks }} open</span></div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <sc-for list="{{ tasks }}" as="t" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:11px"><button onClick="{{ t.onToggle }}" style="{{ t.checkStyle }}">{{ t.check }}</button><div style="flex:1"><span style="{{ t.textStyle }}">{{ t.title }}</span><div style="font-size:11.5px;color:rgba(21,48,42,.45)">{{ t.meta }}</div></div></div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== CALENDAR ===== -->
+      <sc-if value="{{ isCalendar }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:22px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:12px">
+              <button onClick="{{ prevMonth }}" style="cursor:pointer;width:36px;height:36px;border-radius:10px;border:1px solid rgba(21,48,42,.14);background:#fff;font-size:16px">‹</button>
+              <div style="font-weight:600;font-size:17px;min-width:150px;text-align:center">{{ monthLabel }}</div>
+              <button onClick="{{ nextMonth }}" style="cursor:pointer;width:36px;height:36px;border-radius:10px;border:1px solid rgba(21,48,42,.14);background:#fff;font-size:16px">›</button>
+            </div>
+            <div class="sc-scroll" style="display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;font-weight:500;color:rgba(21,48,42,.6)">
+              <sc-for list="{{ legend }}" as="g" hint-placeholder-count="4"><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:3px;background:{{ g.color }}"></span>{{ g.name }}</span></sc-for>
+            </div>
+          </div>
+          <div class="sc-scroll" style="overflow-x:auto">
+            <div style="min-width:780px">
+              <div style="display:grid;grid-template-columns:170px {{ dayCols }};gap:3px;margin-bottom:3px"><div></div>
+                <sc-for list="{{ calDays }}" as="d" hint-placeholder-count="30"><div style="{{ d.headStyle }}">{{ d.d }}</div></sc-for>
+              </div>
+              <sc-for list="{{ calRows }}" as="row" hint-placeholder-count="8">
+                <div style="display:grid;grid-template-columns:170px {{ dayCols }};gap:3px;margin-bottom:3px;align-items:center">
+                  <div style="font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:8px">{{ row.name }}</div>
+                  <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="30"><div title="{{ c.title }}" style="{{ c.style }}"></div></sc-for>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== RESERVATIONS ===== -->
+      <sc-if value="{{ isReservations }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;align-items:center">
+          <sc-for list="{{ statusFilters }}" as="f" hint-placeholder-count="4"><button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button></sc-for>
+          <div style="display:flex;gap:8px;margin-left:auto;flex-wrap:wrap">
+            <select value="{{ resChannel }}" onChange="{{ onResChannel }}" style="padding:9px 14px;border-radius:10px;border:1px solid rgba(21,48,42,.14);background:#fff;font-size:13px;font-weight:600;color:#15302a;cursor:pointer">
+              <sc-for list="{{ chanOpts }}" as="o" hint-placeholder-count="5"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+            </select>
+            <select value="{{ resProperty }}" onChange="{{ onResProperty }}" style="padding:9px 14px;border-radius:10px;border:1px solid rgba(21,48,42,.14);background:#fff;font-size:13px;font-weight:600;color:#15302a;cursor:pointer">
+              <sc-for list="{{ propOpts }}" as="o" hint-placeholder-count="8"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+            </select>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;overflow:hidden;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+          <div class="sc-scroll" style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;min-width:780px">
+            <thead><tr style="background:#f7f8f5;text-align:left">
+              <th style="padding:15px 18px;font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(21,48,42,.5)">GUEST</th>
+              <th style="padding:15px 18px;font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(21,48,42,.5)">PROPERTY</th>
+              <th style="padding:15px 18px;font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(21,48,42,.5)">DATES</th>
+              <th style="padding:15px 18px;font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(21,48,42,.5)">CHANNEL</th>
+              <th style="padding:15px 18px;font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(21,48,42,.5)">PAYOUT</th>
+              <th style="padding:15px 18px;font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(21,48,42,.5)">STATUS</th>
+              <th style="padding:15px 18px"></th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ resRows }}" as="r" hint-placeholder-count="6">
+                <tr style="border-top:1px solid rgba(21,48,42,.06)">
+                  <td style="padding:14px 18px"><div style="font-weight:600;font-size:14px">{{ r.guest }}</div><div style="font-size:11.5px;color:rgba(21,48,42,.5)">{{ r.guests }} guests · {{ r.nights }}n</div></td>
+                  <td style="padding:14px 18px;font-size:13.5px;color:rgba(21,48,42,.78)">{{ r.propertyName }}</td>
+                  <td style="padding:14px 18px;font-size:13px;color:rgba(21,48,42,.7)">{{ r.dateRange }}</td>
+                  <td style="padding:14px 18px"><span style="{{ r.channelStyle }}">{{ r.channel }}</span></td>
+                  <td style="padding:14px 18px;font-weight:600;font-size:14px">{{ r.amount }}</td>
+                  <td style="padding:14px 18px"><span style="{{ r.statusStyle }}">{{ r.status }}</span></td>
+                  <td style="padding:14px 18px;text-align:right;white-space:nowrap"><button onClick="{{ r.onCancel }}" style="cursor:pointer;border:1px solid rgba(21,48,42,.14);background:none;border-radius:8px;padding:7px 11px;font-size:12px;color:rgba(21,48,42,.6);margin-right:6px">Cancel</button><button onClick="{{ r.onDelete }}" style="cursor:pointer;border:1px solid rgba(176,58,46,.3);background:none;border-radius:8px;padding:7px 11px;font-size:12px;color:#b03a2e">Delete</button></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== MESSAGES ===== -->
+      <sc-if value="{{ isMessages }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;overflow:hidden;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+          <div style="padding:18px 22px;border-bottom:1px solid rgba(21,48,42,.07);display:flex;align-items:center;justify-content:space-between"><h2 style="margin:0;font-weight:600;font-size:16px">Unified inbox</h2><span style="font-size:12.5px;font-weight:600;color:#b8893f">{{ unreadCount }} unread</span></div>
+          <sc-for list="{{ messages }}" as="m" hint-placeholder-count="5">
+            <div onClick="{{ m.onRead }}" style="{{ m.rowStyle }}">
+              <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(150deg,#1c4a3b,#13312a);display:flex;align-items:center;justify-content:center;font-weight:700;color:#e7cd86;flex-shrink:0">{{ m.initial }}</div>
+              <div style="flex:1;min-width:0"><div style="display:flex;align-items:center;gap:8px"><span style="font-weight:600;font-size:14px">{{ m.guest }}</span><span style="{{ m.channelStyle }}">{{ m.channel }}</span></div><div style="font-size:13px;font-weight:300;color:rgba(21,48,42,.6);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.preview }}</div></div>
+              <button onClick="{{ m.onReply }}" style="cursor:pointer;flex-shrink:0;padding:9px 16px;border-radius:10px;border:none;background:linear-gradient(120deg,#c9a24b,#9a7424);color:#fff;font-weight:600;font-size:12.5px">Reply</button>
+              <div style="text-align:right;flex-shrink:0;min-width:54px"><div style="font-size:11.5px;color:rgba(21,48,42,.45)">{{ m.time }}</div><span style="{{ m.dotStyle }}"></span></div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- ===== CHANNELS ===== -->
+      <sc-if value="{{ isChannels }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;align-items:center">
+          <sc-for list="{{ chanFilters }}" as="f" hint-placeholder-count="3"><button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button></sc-for>
+          <button onClick="{{ connectAll }}" style="cursor:pointer;margin-left:auto;padding:9px 18px;border-radius:999px;border:none;background:linear-gradient(120deg,#c9a24b,#9a7424);color:#fff;font-weight:600;font-size:13px">Connect all</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px">
+          <sc-for list="{{ channels }}" as="c" hint-placeholder-count="8">
+            <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+                <div style="width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#fff;background:{{ c.color }}">{{ c.mark }}</div>
+                <div style="flex:1"><div style="display:flex;align-items:center;gap:7px"><span style="font-weight:700;font-size:16px">{{ c.name }}</span><span style="{{ c.catStyle }}">{{ c.cat }}</span></div><div style="font-size:12px;color:rgba(21,48,42,.5)">{{ c.sync }}</div></div>
+                <span style="{{ c.badgeStyle }}">{{ c.badge }}</span>
+              </div>
+              <div style="font-size:12.5px;font-weight:300;color:rgba(21,48,42,.6);line-height:1.6;margin-bottom:16px;min-height:38px">{{ c.desc }}</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid rgba(21,48,42,.07)">
+                <span style="font-size:11.5px;color:rgba(21,48,42,.5)">{{ c.lastSync }}</span>
+                <div style="display:flex;gap:8px"><button onClick="{{ c.onSync }}" style="{{ c.syncStyle }}">Sync</button><button onClick="{{ c.onToggle }}" style="{{ c.toggleStyle }}">{{ c.toggleLabel }}</button></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- ===== FINANCE ===== -->
+      <sc-if value="{{ isFinance }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:18px">
+          <sc-for list="{{ finKpis }}" as="k" hint-placeholder-count="4"><div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:22px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)"><div style="font-size:11.5px;font-weight:600;letter-spacing:.06em;color:rgba(21,48,42,.5)">{{ k.label }}</div><div style="font-weight:300;font-size:30px;margin-top:10px;line-height:1">{{ k.value }}</div><div style="font-size:12px;font-weight:500;color:{{ k.color }};margin-top:6px">{{ k.sub }}</div></div></sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px">
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <h2 style="margin:0 0 4px;font-weight:600;font-size:16px">Cashflow forecast</h2>
+            <p style="margin:0 0 18px;font-size:12.5px;font-weight:300;color:rgba(21,48,42,.55)">Projected from confirmed bookings + 6-month trend.</p>
+            <div style="display:flex;align-items:flex-end;gap:12px;height:140px">
+              <sc-for list="{{ forecastBars }}" as="b" hint-placeholder-count="4"><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end"><div style="{{ b.barStyle }}"></div><div style="font-size:10.5px;font-weight:600;color:rgba(21,48,42,.5)">{{ b.short }}</div></div></sc-for>
+            </div>
+          </div>
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <h2 style="margin:0 0 16px;font-weight:600;font-size:16px">Owner statement · {{ monthLabel }}</h2>
+            <div style="display:flex;flex-direction:column;gap:11px">
+              <sc-for list="{{ statement }}" as="s" hint-placeholder-count="4"><div style="display:flex;align-items:center;justify-content:space-between;font-size:14px"><span style="{{ s.labelStyle }}">{{ s.label }}</span><span style="{{ s.valStyle }}">{{ s.value }}</span></div></sc-for>
+            </div>
+            <button onClick="{{ exportStatement }}" style="cursor:pointer;width:100%;margin-top:18px;padding:13px;border-radius:12px;border:1px solid rgba(21,48,42,.14);background:#fff;font-weight:600;font-size:13.5px">Export statement (CSV)</button>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;overflow:hidden;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+          <div style="padding:18px 22px;border-bottom:1px solid rgba(21,48,42,.07)"><h2 style="margin:0;font-weight:600;font-size:16px">Recent payouts</h2></div>
+          <sc-for list="{{ payouts }}" as="p" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:14px;padding:15px 22px;border-top:1px solid rgba(21,48,42,.05)"><span style="{{ p.channelStyle }}">{{ p.channel }}</span><div style="flex:1;font-size:13.5px;color:rgba(21,48,42,.7)">{{ p.note }}</div><span style="font-size:12px;color:rgba(21,48,42,.45)">{{ p.date }}</span><span style="font-weight:700;font-size:14px;color:#1f7a52">{{ p.amount }}</span></div></sc-for>
+        </div>
+      </sc-if>
+
+      <!-- ===== BUSINESS ===== -->
+      <sc-if value="{{ isBusiness }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+          <sc-for list="{{ bizFilters }}" as="f" hint-placeholder-count="3"><button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button></sc-for>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap"><span style="font-size:12px;font-weight:600;letter-spacing:.04em;color:rgba(21,48,42,.55)">Annual run-rate</span><span style="font-weight:700;font-size:18px;color:#15302a">{{ arrLabel }}</span><span style="font-size:11.5px;color:rgba(21,48,42,.45)">· ADR &amp; unit economics reflect the selected scope</span></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:18px">
+          <sc-for list="{{ bizKpis }}" as="k" hint-placeholder-count="4">
+            <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:22px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+              <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:11px;font-weight:600;letter-spacing:.05em;color:rgba(21,48,42,.5)">{{ k.label }}</div><span style="{{ k.trendStyle }}">{{ k.trend }}</span></div>
+              <div style="font-weight:300;font-size:32px;color:#15302a;margin-top:12px;line-height:1">{{ k.value }}</div>
+              <div style="font-size:12px;font-weight:500;color:rgba(21,48,42,.5);margin-top:6px">{{ k.sub }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px">
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <h2 style="margin:0 0 4px;font-weight:600;font-size:16px">P&amp;L · {{ monthLabel }}</h2>
+            <p style="margin:0 0 16px;font-size:12px;font-weight:300;color:rgba(21,48,42,.5)">Operating model on this month's revenue.</p>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ pnl }}" as="p" hint-placeholder-count="8"><div style="{{ p.rowStyle }}"><span style="{{ p.labelStyle }}">{{ p.label }}</span><span style="{{ p.valStyle }}">{{ p.value }}</span></div></sc-for>
+            </div>
+          </div>
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <h2 style="margin:0 0 16px;font-weight:600;font-size:16px">Unit economics</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <sc-for list="{{ unit }}" as="u" hint-placeholder-count="8"><div style="padding:14px;border-radius:13px;background:#f7f8f5;border:1px solid rgba(21,48,42,.05)"><div style="font-size:11px;font-weight:600;letter-spacing:.03em;color:rgba(21,48,42,.5)">{{ u.label }}</div><div style="font-weight:700;font-size:18px;margin-top:6px;color:#15302a">{{ u.value }}</div></div></sc-for>
+            </div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3);margin-bottom:18px">
+          <h2 style="margin:0 0 16px;font-weight:600;font-size:16px">The terms that matter</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+            <sc-for list="{{ bizTerms }}" as="t" hint-placeholder-count="6"><div style="padding:16px;border-radius:14px;background:#f7f8f5;border:1px solid rgba(21,48,42,.05)"><div style="font-weight:700;font-size:14px;color:#b8893f;margin-bottom:6px">{{ t.term }}</div><div style="font-size:12.5px;font-weight:300;line-height:1.6;color:rgba(21,48,42,.65)">{{ t.def }}</div></div></sc-for>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:18px">
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px"><h2 style="margin:0;font-weight:600;font-size:16px">Market notes</h2><span style="font-size:11px;font-weight:500;color:rgba(21,48,42,.4)">Curated · weekly</span></div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <sc-for list="{{ marketNotes }}" as="m" hint-placeholder-count="3"><div style="padding:16px;border-radius:14px;background:#f7f8f5;border:1px solid rgba(21,48,42,.05)"><span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;color:#b8893f;background:rgba(184,137,63,.12);padding:3px 9px;border-radius:999px;margin-bottom:9px">{{ m.tag }}</span><div style="font-weight:600;font-size:14.5px;margin-bottom:5px">{{ m.title }}</div><div style="font-size:12.5px;font-weight:300;line-height:1.6;color:rgba(21,48,42,.62)">{{ m.note }}</div></div></sc-for>
+            </div>
+          </div>
+          <div style="background:linear-gradient(160deg,#1c4a3b,#15302a);color:#f6f1e7;border:1px solid rgba(21,48,42,.1);border-radius:20px;padding:26px;box-shadow:0 14px 36px -30px rgba(21,48,42,.4);display:flex;flex-direction:column;justify-content:center">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.16em;color:#e7cd86;margin-bottom:12px">EMPIRE RESEARCH</div>
+            <h2 style="margin:0 0 10px;font-weight:300;font-size:24px;letter-spacing:-.01em">The Monday brief.</h2>
+            <p style="margin:0 0 20px;font-size:13.5px;font-weight:300;line-height:1.6;color:rgba(246,241,231,.7)">Occupancy trends, ADR moves, new rules and fresh opportunities across Thane &amp; Mumbai — in your inbox weekly.</p>
+            <input value="{{ newsletterEmail }}" onInput="{{ onNewsletter }}" placeholder="you@email.com" style="width:100%;padding:13px 15px;border-radius:12px;border:1px solid rgba(246,241,231,.2);background:rgba(255,255,255,.06);color:#f6f1e7;font-size:14px;margin-bottom:10px"/>
+            <button onClick="{{ subscribeNewsletter }}" style="cursor:pointer;width:100%;padding:13px;border-radius:12px;border:none;background:linear-gradient(120deg,#e7cd86,#c9a24b);color:#15302a;font-weight:600;font-size:14px">Subscribe</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== PRICING ===== -->
+      <sc-if value="{{ isPricing }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:24px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3);max-width:880px">
+          <h2 style="margin:0 0 4px;font-weight:600;font-size:17px">Dynamic pricing rules</h2>
+          <p style="margin:0 0 20px;font-size:13px;font-weight:300;color:rgba(21,48,42,.55)">Set a per-channel markup over your base nightly rate to offset commissions and stay competitive. Applied across all properties.</p>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ pricingRows }}" as="p" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:14px;background:#f7f8f5;border:1px solid rgba(21,48,42,.05)">
+                <span style="width:12px;height:12px;border-radius:4px;background:{{ p.color }};flex-shrink:0"></span>
+                <span style="flex:1;font-weight:600;font-size:14.5px">{{ p.name }}</span>
+                <span style="font-size:12.5px;color:rgba(21,48,42,.5)">Markup</span>
+                <div style="display:flex;align-items:center;gap:8px"><button onClick="{{ p.onDec }}" style="cursor:pointer;width:30px;height:30px;border-radius:8px;border:1px solid rgba(21,48,42,.16);background:#fff;font-size:16px">−</button><span style="min-width:48px;text-align:center;font-weight:700;font-size:15px">{{ p.markup }}%</span><button onClick="{{ p.onInc }}" style="cursor:pointer;width:30px;height:30px;border-radius:8px;border:1px solid rgba(21,48,42,.16);background:#fff;font-size:16px">+</button></div>
+                <span style="min-width:120px;text-align:right;font-size:13px;color:rgba(21,48,42,.6)">Avg {{ p.example }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== INTEGRATIONS ===== -->
+      <sc-if value="{{ isIntegrations }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:18px;max-width:1000px">
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:26px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <h2 style="margin:0 0 4px;font-weight:600;font-size:17px">API access</h2>
+            <p style="margin:0 0 18px;font-size:13px;font-weight:300;color:rgba(21,48,42,.55)">One key connects Empire Stayys data to your own tools. Keep it secret — treat it like a password.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px">
+              <code style="flex:1;min-width:240px;padding:14px 16px;border-radius:12px;background:#15302a;color:#e7cd86;font-size:13.5px;font-family:ui-monospace,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ apiKey }}</code>
+              <button onClick="{{ copyKey }}" style="cursor:pointer;padding:13px 18px;border-radius:12px;border:1px solid rgba(21,48,42,.14);background:#fff;font-weight:600;font-size:13px">Copy</button>
+              <button onClick="{{ regenKey }}" style="cursor:pointer;padding:13px 18px;border-radius:12px;border:none;background:linear-gradient(120deg,#c9a24b,#9a7424);color:#fff;font-weight:600;font-size:13px">Regenerate</button>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center"><span style="font-size:12.5px;font-weight:600;color:rgba(21,48,42,.55)">Webhook URL</span><code style="flex:1;min-width:240px;padding:11px 15px;border-radius:11px;background:#f7f8f5;border:1px solid rgba(21,48,42,.1);font-size:12.5px;font-family:ui-monospace,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:rgba(21,48,42,.7)">{{ webhookUrl }}</code><button onClick="{{ copyHook }}" style="cursor:pointer;padding:11px 15px;border-radius:11px;border:1px solid rgba(21,48,42,.14);background:#fff;font-weight:600;font-size:12.5px">Copy</button></div>
+          </div>
+
+          <div>
+            <h2 style="margin:0 0 14px;font-weight:600;font-size:16px;padding-left:4px">Ways to use it</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+              <sc-for list="{{ useCases }}" as="u" hint-placeholder-count="5">
+                <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:18px;padding:22px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+                  <div style="width:40px;height:40px;border-radius:11px;background:{{ u.tint }};display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:14px">{{ u.icon }}</div>
+                  <h3 style="margin:0 0 7px;font-weight:600;font-size:15px">{{ u.title }}</h3>
+                  <p style="margin:0 0 16px;font-size:13px;font-weight:300;line-height:1.6;color:rgba(21,48,42,.6)">{{ u.desc }}</p>
+                  <button onClick="{{ u.onConnect }}" style="{{ u.btnStyle }}">{{ u.btn }}</button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:26px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px"><h2 style="margin:0;font-weight:600;font-size:16px">Sample requests</h2><div style="display:flex;gap:6px;background:#f1f3ef;padding:4px;border-radius:10px"><button onClick="{{ tabCurl }}" style="{{ curlTabStyle }}">cURL</button><button onClick="{{ tabJs }}" style="{{ jsTabStyle }}">JavaScript</button></div></div>
+            <pre class="sc-scroll" style="margin:0;padding:20px;border-radius:14px;background:#15302a;color:#e7e3d6;font-family:ui-monospace,monospace;font-size:12.5px;line-height:1.7;overflow-x:auto;white-space:pre">{{ codeSample }}</pre>
+            <button onClick="{{ copyCode }}" style="cursor:pointer;margin-top:12px;padding:11px 18px;border-radius:11px;border:1px solid rgba(21,48,42,.14);background:#fff;font-weight:600;font-size:13px">Copy code</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== SETTINGS ===== -->
+      <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:18px;max-width:960px">
+          <!-- ical -->
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:26px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <h2 style="margin:0 0 4px;font-weight:600;font-size:17px">iCal calendar sync</h2>
+            <p style="margin:0 0 20px;font-size:13px;font-weight:300;color:rgba(21,48,42,.55)">Export each property's calendar, or paste an external iCal URL (Airbnb / Booking / Vrbo) to import availability. iCal refreshes on a delay — for instant two-way sync, connect via API on the Channels tab.</p>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{ icalRows }}" as="i" hint-placeholder-count="4">
+                <div style="padding:16px;border-radius:14px;background:#f7f8f5;border:1px solid rgba(21,48,42,.05)">
+                  <div style="font-weight:600;font-size:14px;margin-bottom:11px">{{ i.name }}</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:9px"><code style="flex:1;min-width:220px;padding:10px 13px;border-radius:10px;background:#fff;border:1px solid rgba(21,48,42,.1);font-size:12px;font-family:ui-monospace,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:rgba(21,48,42,.7)">{{ i.exportUrl }}</code><button onClick="{{ i.onCopy }}" style="cursor:pointer;padding:10px 14px;border-radius:10px;border:1px solid rgba(21,48,42,.14);background:#fff;font-weight:600;font-size:12px">Copy</button></div>
+                  <input value="{{ i.importUrl }}" onInput="{{ i.onImport }}" placeholder="Paste external iCal import URL…" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid rgba(21,48,42,.13);font-size:13px"/>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <!-- templates -->
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:26px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <h2 style="margin:0 0 16px;font-weight:600;font-size:17px">Guest message templates</h2>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{ templates }}" as="t" hint-placeholder-count="3">
+                <div style="padding:16px;border-radius:14px;background:#f7f8f5;border:1px solid rgba(21,48,42,.05)"><div style="font-weight:600;font-size:13.5px;margin-bottom:9px">{{ t.title }}</div><textarea value="{{ t.body }}" onInput="{{ t.onEdit }}" rows="2" style="width:100%;padding:11px 14px;border-radius:10px;border:1px solid rgba(21,48,42,.13);font-size:13px;resize:vertical;line-height:1.5"></textarea></div>
+              </sc-for>
+            </div>
+          </div>
+          <!-- team -->
+          <div style="background:#fff;border:1px solid rgba(21,48,42,.06);border-radius:20px;padding:26px;box-shadow:0 14px 36px -30px rgba(21,48,42,.3)">
+            <h2 style="margin:0 0 16px;font-weight:600;font-size:17px">Team &amp; access</h2>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ team }}" as="m" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:13px;padding:13px 16px;border-radius:13px;background:#f7f8f5;border:1px solid rgba(21,48,42,.05)"><div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(150deg,#c9a24b,#9a7424);display:flex;align-items:center;justify-content:center;font-weight:700;color:#15302a">{{ m.initial }}</div><div style="flex:1"><div style="font-weight:600;font-size:14px">{{ m.name }}</div><div style="font-size:12px;color:rgba(21,48,42,.5)">{{ m.email }}</div></div><span style="{{ m.roleStyle }}">{{ m.role }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </main>
+</div>
+
+<!-- TOAST -->
+<div style="{{ toastStyle }}">{{ toast }}</div>
+
+<!-- NEW BOOKING SCENE REMOVED -->
+<sc-if value="{{ modalRemoved }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:100;background:rgba(15,30,24,.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px">
+  <div onClick="{{ stop }}" style="width:100%;max-width:480px;background:#fff;border-radius:24px;padding:30px;box-shadow:0 50px 110px -40px rgba(0,0,0,.55)">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px"><h2 style="margin:0;font-weight:600;font-size:20px">New booking</h2><button onClick="{{ closeModal }}" style="cursor:pointer;border:none;background:none;font-size:24px;color:rgba(21,48,42,.4);line-height:1">×</button></div>
+    <div style="display:flex;flex-direction:column;gap:13px">
+      <div><label style="display:block;font-size:12px;font-weight:600;color:rgba(21,48,42,.6);margin-bottom:6px">GUEST NAME</label><input value="{{ form.guest }}" onInput="{{ onFormGuest }}" placeholder="e.g. Aarav Sharma" style="width:100%;padding:13px 15px;border-radius:11px;border:1px solid rgba(21,48,42,.15);font-size:14.5px"/></div>
+      <div><label style="display:block;font-size:12px;font-weight:600;color:rgba(21,48,42,.6);margin-bottom:6px">PROPERTY</label><select value="{{ form.property }}" onChange="{{ onFormProperty }}" style="width:100%;padding:13px 15px;border-radius:11px;border:1px solid rgba(21,48,42,.15);font-size:14.5px;background:#fff"><sc-for list="{{ propertyOptions }}" as="p" hint-placeholder-count="8"><option value="{{ p.slug }}">{{ p.name }}</option></sc-for></select></div>
+      <div style="display:flex;gap:12px"><div style="flex:1"><label style="display:block;font-size:12px;font-weight:600;color:rgba(21,48,42,.6);margin-bottom:6px">CHECK-IN</label><input type="date" value="{{ form.checkIn }}" onInput="{{ onFormIn }}" style="width:100%;padding:13px 15px;border-radius:11px;border:1px solid rgba(21,48,42,.15);font-size:14px"/></div><div style="flex:1"><label style="display:block;font-size:12px;font-weight:600;color:rgba(21,48,42,.6);margin-bottom:6px">CHECKOUT</label><input type="date" value="{{ form.checkOut }}" onInput="{{ onFormOut }}" style="width:100%;padding:13px 15px;border-radius:11px;border:1px solid rgba(21,48,42,.15);font-size:14px"/></div></div>
+      <div style="display:flex;gap:12px"><div style="flex:1"><label style="display:block;font-size:12px;font-weight:600;color:rgba(21,48,42,.6);margin-bottom:6px">GUESTS</label><input type="number" min="1" max="7" value="{{ form.guests }}" onInput="{{ onFormGuests }}" style="width:100%;padding:13px 15px;border-radius:11px;border:1px solid rgba(21,48,42,.15);font-size:14.5px"/></div><div style="flex:1"><label style="display:block;font-size:12px;font-weight:600;color:rgba(21,48,42,.6);margin-bottom:6px">CHANNEL</label><select value="{{ form.channel }}" onChange="{{ onFormChannel }}" style="width:100%;padding:13px 15px;border-radius:11px;border:1px solid rgba(21,48,42,.15);font-size:14.5px;background:#fff"><sc-for list="{{ channelNames }}" as="c" hint-placeholder-count="4"><option>{{ c }}</option></sc-for></select></div></div>
+      <div style="{{ formErrStyle }}">{{ formErr }}</div>
+      <button onClick="{{ addReservation }}" style="cursor:pointer;margin-top:4px;padding:15px;border-radius:12px;border:none;background:linear-gradient(120deg,#c9a24b,#9a7424);color:#fff;font-weight:600;font-size:15px">Save booking</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+</sc-if>
+</script>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Light&quot;,&quot;Dark&quot;],&quot;default&quot;:&quot;Light&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Feel&quot;,&quot;label&quot;:&quot;Theme&quot;},&quot;cardDepth&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Flat&quot;,&quot;Tilt&quot;,&quot;Float 3D&quot;],&quot;default&quot;:&quot;Flat&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Feel&quot;,&quot;label&quot;:&quot;Card depth&quot;},&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Calm&quot;,&quot;Smooth&quot;,&quot;Springy&quot;],&quot;default&quot;:&quot;Calm&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Feel&quot;,&quot;label&quot;:&quot;Motion&quot;},&quot;ambient&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Off&quot;,&quot;Aurora&quot;,&quot;Spotlight&quot;],&quot;default&quot;:&quot;Aurora&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Feel&quot;,&quot;label&quot;:&quot;Ambient&quot;}}">
+class Component extends DCLogic {
+  state = {
+    loggedIn: false, role: 'Owner', view: 'dashboard', modalOpen: false,
+    loginUser: '', loginPass: '', loginErr: '',
+    statusFilter: 'all', calMonth: '2026-07', codeTab: 'curl', newsletterEmail: '', chanCat: 'all', bizScope: 'all', resChannel: 'all', resProperty: 'all', propFilter: 'all', period: 'Monthly',
+    reservations: [], messages: [], tasks: [], settings: null, form: null, formErr: '', toast: ''
+  };
+
+  PROPS = [
+    { slug: 'heaven-19', name: 'Heaven °19', rate: 4500 },
+    { slug: 'nyc-35', name: 'NYC °35', rate: 6500 },
+    { slug: 'coastline-21', name: 'Coastline Studio °21', rate: 3500 },
+    { slug: 'white-island-21', name: 'White Island °21', rate: 4500 },
+    { slug: 'paradise-142', name: 'Paradise °142', rate: 7560 },
+    { slug: 'paradise-144', name: 'Paradise °144', rate: 7560 },
+    { slug: 'glitch-20', name: 'Glitch Studio °20', rate: 3500 },
+    { slug: 'imperial-28', name: 'Imperial °28', rate: 6500 }
+  ];
+  CH = [
+    { name: 'Airbnb', color: '#e0613f', mark: 'A' },
+    { name: 'Booking.com', color: '#2f6fb0', mark: 'B' },
+    { name: 'Vrbo', color: '#3a78c9', mark: 'V' },
+    { name: 'Expedia', color: '#c79a2e', mark: 'E' },
+    { name: 'Agoda', color: '#6c4ed6', mark: 'Ag' },
+    { name: 'Google', color: '#2aa657', mark: 'G' },
+    { name: 'MakeMyTrip', color: '#e8532b', mark: 'M' },
+    { name: 'Direct', color: '#1f7a52', mark: 'D' }
+  ];
+  CHDESC = {
+    'Airbnb': 'Two-way API sync — bookings, calendar and guest messages flow into the panel.',
+    'Booking.com': 'Premier-partner API connection keeps availability and rates aligned.',
+    'Vrbo': 'Expedia-group API sync for Vrbo reservations and blocks.',
+    'Expedia': 'Reach Expedia / Hotels.com travellers with live availability.',
+    'Agoda': 'Strong APAC demand — sync availability and rates two-way.',
+    'Google': 'Google Vacation Rentals — commission-light direct visibility.',
+    'MakeMyTrip': 'India\u2019s largest OTA — capture domestic demand across Thane & Mumbai.',
+    'Direct': 'Commission-free bookings from your website and WhatsApp.'
+  };
+  blankForm() { return { guest: '', property: 'coastline-21', checkIn: '', checkOut: '', guests: 2, channel: 'Airbnb' }; }
+
+  componentDidMount() {
+    let res, settings, msgs, tasks, session;
+    try { res = JSON.parse(localStorage.getItem('es2_res') || 'null'); } catch (e) {}
+    try { settings = JSON.parse(localStorage.getItem('es2_settings') || 'null'); } catch (e) {}
+    try { msgs = JSON.parse(localStorage.getItem('es2_msgs') || 'null'); } catch (e) {}
+    try { tasks = JSON.parse(localStorage.getItem('es2_tasks') || 'null'); } catch (e) {}
+    try { session = JSON.parse(localStorage.getItem('es2_session') || 'null'); } catch (e) {}
+    if (!res) { res = this.seedRes(); this.persist('es2_res', res); }
+    if (!msgs) { msgs = this.seedMsgs(); this.persist('es2_msgs', msgs); }
+    if (!tasks) { tasks = this.seedTasks(); this.persist('es2_tasks', tasks); }
+    if (!settings) {
+      const channels = {}; this.CH.forEach((c) => { channels[c.name] = c.name !== 'Vrbo' && c.name !== 'Expedia'; });
+      const pricing = {}; this.CH.forEach((c) => { pricing[c.name] = c.name === 'Booking.com' ? 15 : c.name === 'Airbnb' ? 3 : c.name === 'Agoda' ? 18 : c.name === 'Direct' ? 0 : 12; });
+      const templates = [
+        { title: 'Booking confirmation', body: 'Hi {guest}, your stay at {property} is confirmed for {dates}. We can\u2019t wait to host you! — Team Empire Stayys' },
+        { title: 'Check-in instructions', body: 'Welcome! Check-in is from 2 PM. Here are your self check-in details and the Wi-Fi code. Reach us anytime on WhatsApp.' },
+        { title: 'Checkout reminder', body: 'Good morning {guest}! Just a gentle reminder that checkout is at 11 AM. Safe travels — and a review would mean the world.' }
+      ];
+      settings = { apiKey: this.genKey(), channels, sync: {}, ical: {}, pricing, templates };
+      this.persist('es2_settings', settings);
+    }
+    this.setState({ reservations: res, messages: msgs, tasks, settings, form: this.blankForm(), loggedIn: !!session, role: session && session.role ? session.role : 'Owner' });
+    this.initFx();
+  }
+  componentDidUpdate() { this.scanTag(); this.applyFx(); }
+  initFx() {
+    if (this._fxInit) return; this._fxInit = true;
+    const st = document.createElement('style'); st.id = 'es2-fx';
+    st.textContent = '@keyframes es2Aurora{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(6%,-4%) scale(1.18)}66%{transform:translate(-6%,5%) scale(.92)}}@keyframes es2In{from{opacity:0}to{opacity:1}}';
+    document.head.appendChild(st);
+    this._move = (e) => {
+      const depth = this.props.cardDepth || 'Tilt';
+      if (depth === 'Flat') { if (this._ac) { this.resetCard(this._ac); this._ac = null; } return; }
+      const c = e.target.closest ? e.target.closest('[data-card="1"]') : null;
+      if (this._ac && this._ac !== c) { this.resetCard(this._ac); this._ac = null; }
+      if (!c) return; this._ac = c;
+      const r = c.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - .5; const y = (e.clientY - r.top) / r.height - .5;
+      const max = depth === 'Float 3D' ? 11 : 5; const spring = (this.props.motion || 'Smooth') === 'Springy';
+      if (c.dataset.sh === undefined) c.dataset.sh = c.style.boxShadow || '';
+      c.style.transition = (spring ? 'transform .26s cubic-bezier(.34,1.56,.64,1)' : 'transform .14s ease') + ',box-shadow .25s ease';
+      c.style.transform = 'perspective(1000px) rotateX(' + (-y * max).toFixed(2) + 'deg) rotateY(' + (x * max).toFixed(2) + 'deg)' + (depth === 'Float 3D' ? ' translateZ(16px) scale(1.015)' : '');
+      c.style.boxShadow = '0 30px 64px -26px rgba(21,48,42,.5)';
+    };
+    window.addEventListener('pointermove', this._move, { passive: true });
+    this._leave = () => { if (this._ac) { this.resetCard(this._ac); this._ac = null; } };
+    window.addEventListener('blur', this._leave);
+    this.scanTag(); this.applyFx();
+  }
+  resetCard(c) { c.style.transform = ''; if (c.dataset.sh !== undefined) c.style.boxShadow = c.dataset.sh; }
+  scanTag() {
+    const motion = this.props.motion || 'Smooth';
+    document.querySelectorAll('main [style*="box-shadow"]').forEach((c) => {
+      if (c.dataset.card) return; if ((c.tagName === 'BUTTON') || c.offsetHeight < 70) return; c.dataset.card = '1'; c.style.willChange = 'transform';
+      if (motion !== 'Calm') { c.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 450, easing: 'ease' }); }
+    });
+  }
+  applyFx() {
+    // theme
+    const dark = (this.props.theme || 'Light') === 'Dark';
+    if (this._dark !== dark) { this._dark = dark; document.body.style.filter = dark ? 'invert(0.94) hue-rotate(180deg)' : ''; }
+    // ambient
+    const ambient = this.props.ambient || 'Aurora';
+    if (this._amb !== ambient) {
+      this._amb = ambient;
+      let bg = document.getElementById('es2-aurora'); let sp = document.getElementById('es2-spot');
+      if (ambient === 'Off') { if (bg) bg.remove(); if (sp) sp.remove(); }
+      else {
+        if (!bg) { bg = document.createElement('div'); bg.id = 'es2-aurora'; bg.style.cssText = 'position:fixed;inset:0;z-index:60;pointer-events:none;overflow:hidden'; bg.innerHTML = '<div style="position:absolute;top:-22%;left:-12%;width:52vw;height:52vw;border-radius:50%;background:radial-gradient(circle,rgba(201,162,75,.16),transparent 62%);filter:blur(30px);animation:es2Aurora 26s ease-in-out infinite"></div><div style="position:absolute;bottom:-26%;right:-12%;width:52vw;height:52vw;border-radius:50%;background:radial-gradient(circle,rgba(28,120,92,.18),transparent 62%);filter:blur(40px);animation:es2Aurora 34s ease-in-out infinite reverse"></div>'; document.body.appendChild(bg); }
+        if (ambient === 'Spotlight') {
+          if (!sp) { sp = document.createElement('div'); sp.id = 'es2-spot'; sp.style.cssText = 'position:fixed;inset:0;z-index:61;pointer-events:none;background:radial-gradient(440px circle at 50% 25%,rgba(201,162,75,.12),transparent 62%)'; document.body.appendChild(sp); }
+          if (!this._spotMove) { this._spotMove = (e) => { const s = document.getElementById('es2-spot'); if (s) s.style.background = 'radial-gradient(460px circle at ' + e.clientX + 'px ' + e.clientY + 'px,rgba(201,162,75,.15),transparent 60%)'; }; window.addEventListener('pointermove', this._spotMove, { passive: true }); }
+        } else { if (sp) sp.remove(); }
+      }
+    }
+    // smooth / springy scroll
+    const spring = (this.props.motion || 'Smooth') === 'Springy';
+    document.documentElement.style.scrollBehavior = 'smooth';
+    if (this._lerp !== spring) {
+      this._lerp = spring;
+      if (!spring) { if (this._wheel) { window.removeEventListener('wheel', this._wheel); this._wheel = null; } }
+      else {
+        let target = window.scrollY, ticking = false;
+        const step = () => { const cur = window.scrollY; const nx = cur + (target - cur) * 0.12; window.scrollTo(0, nx); if (Math.abs(target - nx) > 0.5) requestAnimationFrame(step); else ticking = false; };
+        this._wheel = (e) => { let n = e.target; while (n && n !== document.body) { if (n.scrollWidth > n.clientWidth + 4) { const ov = getComputedStyle(n).overflowX; if (ov === 'auto' || ov === 'scroll') return; } n = n.parentElement; } const max = document.documentElement.scrollHeight - window.innerHeight; target = Math.max(0, Math.min(max, (ticking ? target : window.scrollY) + e.deltaY)); e.preventDefault(); if (!ticking) { ticking = true; requestAnimationFrame(step); } };
+        window.addEventListener('wheel', this._wheel, { passive: false });
+      }
+    }
+  }
+
+  seedRes() {
+    return [
+      { id: 'R1', guest: 'Aarav Sharma', slug: 'coastline-21', channel: 'Airbnb', checkIn: '2026-07-03', checkOut: '2026-07-07', guests: 2, status: 'confirmed' },
+      { id: 'R2', guest: 'Priya Nair', slug: 'paradise-144', channel: 'Airbnb', checkIn: '2026-07-05', checkOut: '2026-07-12', guests: 5, status: 'confirmed' },
+      { id: 'R3', guest: 'Rahul Mehta', slug: 'nyc-35', channel: 'MakeMyTrip', checkIn: '2026-07-10', checkOut: '2026-07-14', guests: 4, status: 'pending' },
+      { id: 'R4', guest: 'Sara Khan', slug: 'white-island-21', channel: 'Booking.com', checkIn: '2026-07-12', checkOut: '2026-07-15', guests: 2, status: 'confirmed' },
+      { id: 'R5', guest: 'Vikram Rao', slug: 'heaven-19', channel: 'Airbnb', checkIn: '2026-07-18', checkOut: '2026-07-22', guests: 2, status: 'confirmed' },
+      { id: 'R6', guest: 'Neha Gupta', slug: 'paradise-142', channel: 'Vrbo', checkIn: '2026-07-20', checkOut: '2026-08-04', guests: 6, status: 'confirmed' },
+      { id: 'R7', guest: 'Imran Sheikh', slug: 'imperial-28', channel: 'Direct', checkIn: '2026-07-08', checkOut: '2026-07-11', guests: 4, status: 'confirmed' },
+      { id: 'R8', guest: 'Ananya Iyer', slug: 'glitch-20', channel: 'Booking.com', checkIn: '2026-07-25', checkOut: '2026-07-28', guests: 2, status: 'confirmed' },
+      { id: 'R9', guest: 'Karthik Menon', slug: 'coastline-21', channel: 'Agoda', checkIn: '2026-07-16', checkOut: '2026-07-19', guests: 2, status: 'pending' }
+    ];
+  }
+  seedMsgs() {
+    return [
+      { id: 'M1', guest: 'Aarav Sharma', channel: 'Airbnb', preview: 'Hi! Is early check-in possible on the 3rd?', time: '9:24 AM', unread: true },
+      { id: 'M2', guest: 'Sara Khan', channel: 'Booking.com', preview: 'Thank you, the apartment looks lovely. See you soon!', time: 'Yesterday', unread: true },
+      { id: 'M3', guest: 'Rahul Mehta', channel: 'MakeMyTrip', preview: 'Can you share the exact location pin?', time: 'Yesterday', unread: false },
+      { id: 'M4', guest: 'Priya Nair', channel: 'Airbnb', preview: 'We loved the stay — leaving a 5-star review now.', time: 'Mon', unread: false },
+      { id: 'M5', guest: 'Imran Sheikh', channel: 'Direct', preview: 'Could we get extra towels for 4 guests?', time: 'Mon', unread: false }
+    ];
+  }
+  seedTasks() {
+    return [
+      { id: 'T1', title: 'Turnover clean · Coastline °21', meta: 'Before 2 PM check-in', done: false },
+      { id: 'T2', title: 'Restock linen · Paradise °144', meta: 'Today', done: false },
+      { id: 'T3', title: 'AC service · Heaven °19', meta: 'Scheduled 4 PM', done: true }
+    ];
+  }
+
+  genKey() { let s = 'es_live_'; const c = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789abcdefghijkmnpqrstuvwxyz'; for (let i = 0; i < 28; i++) s += c[Math.floor(Math.random() * c.length)]; return s; }
+  persist(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  saveSession(v) { try { if (v) localStorage.setItem('es2_session', JSON.stringify(v)); else localStorage.removeItem('es2_session'); } catch (e) {} }
+  toast(m) { this.setState({ toast: m }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: '' }), 2200); }
+
+  prop(slug) { return this.PROPS.find((p) => p.slug === slug) || { name: slug, rate: 0 }; }
+  chColor(n) { const c = this.CH.find((x) => x.name === n); return c ? c.color : '#777'; }
+  nights(a, b) { return Math.max(1, Math.round((new Date(b) - new Date(a)) / 86400000)); }
+  discPct(n) { return n >= 28 ? 15 : n >= 14 ? 10 : n >= 7 ? 7 : 0; }
+  amount(r) { const p = this.prop(r.slug); const n = this.nights(r.checkIn, r.checkOut); return Math.round(p.rate * n * (1 - this.discPct(n) / 100)); }
+  inr(n) { if (n >= 100000) return '₹' + (n / 100000).toFixed(2) + 'L'; return '₹' + Math.round(n).toLocaleString('en-IN'); }
+  inrFull(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+  fmtRange(a, b) { const o = { day: 'numeric', month: 'short' }; try { return new Date(a).toLocaleDateString('en-GB', o) + ' – ' + new Date(b).toLocaleDateString('en-GB', o); } catch (e) { return a + ' – ' + b; } }
+  chStyle(ch) { const c = this.chColor(ch); return 'display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:600;color:' + c + ';background:' + c + '1f'; }
+  stStyle(s) { const m = { confirmed: '#1f7a52', pending: '#b8860b', cancelled: '#b03a2e' }; const c = m[s] || '#777'; return 'display:inline-block;padding:4px 11px;border-radius:999px;font-size:11.5px;font-weight:600;color:' + c + ';background:' + c + '1f'; }
+
+  loginAs(role) { this.saveSession({ user: 'meet', role }); this.setState({ loggedIn: true, role, loginErr: '', loginPass: '' }); }
+  doLoginCreds() { if (this.state.loginUser.trim().toLowerCase() === 'meet patel' && this.state.loginPass === 'c0mplExnumbers##') this.loginAs('Owner'); else this.setState({ loginErr: 'Incorrect ID or password.' }); }
+  doLoginGoogle() { this.loginAs('Owner'); this.toast('Signed in with Google as Meet Patel'); }
+  doLogout() { this.saveSession(null); this.setState({ loggedIn: false, view: 'dashboard' }); }
+  setView(v) { this.setState({ view: v }); }
+
+  addReservation() {
+    const f = this.state.form;
+    if (!f.guest.trim() || !f.checkIn || !f.checkOut) { this.setState({ formErr: 'Add a guest name and both dates.' }); return; }
+    if (new Date(f.checkOut) <= new Date(f.checkIn)) { this.setState({ formErr: 'Checkout must be after check-in.' }); return; }
+    const r = { id: 'R' + Date.now(), guest: f.guest.trim(), slug: f.property, channel: f.channel, checkIn: f.checkIn, checkOut: f.checkOut, guests: parseInt(f.guests, 10) || 2, status: 'confirmed' };
+    const reservations = [r, ...this.state.reservations];
+    this.persist('es2_res', reservations);
+    this.setState({ reservations, modalOpen: false, form: this.blankForm(), formErr: '' });
+    this.toast('Booking added · channels notified');
+  }
+  cancelRes(id) { const r = this.state.reservations.map((x) => x.id === id ? Object.assign({}, x, { status: x.status === 'cancelled' ? 'confirmed' : 'cancelled' }) : x); this.persist('es2_res', r); this.setState({ reservations: r }); }
+  deleteRes(id) { const r = this.state.reservations.filter((x) => x.id !== id); this.persist('es2_res', r); this.setState({ reservations: r }); this.toast('Booking deleted'); }
+  toggleTask(id) { const t = this.state.tasks.map((x) => x.id === id ? Object.assign({}, x, { done: !x.done }) : x); this.persist('es2_tasks', t); this.setState({ tasks: t }); }
+  readMsg(id) { const m = this.state.messages.map((x) => x.id === id ? Object.assign({}, x, { unread: false }) : x); this.persist('es2_msgs', m); this.setState({ messages: m }); }
+  subscribeNewsletter() { if (!/.+@.+\..+/.test(this.state.newsletterEmail)) { this.toast('Enter a valid email'); return; } this.toast('Subscribed — research drops every Monday'); this.setState({ newsletterEmail: '' }); }
+
+  upd(patch) { const s = Object.assign({}, this.state.settings, patch); this.persist('es2_settings', s); this.setState({ settings: s }); return s; }
+  toggleChannel(n) { const ch = Object.assign({}, this.state.settings.channels, { [n]: !this.state.settings.channels[n] }); this.upd({ channels: ch }); }
+  syncChannel(n) { const sy = Object.assign({}, this.state.settings.sync, { [n]: Date.now() }); this.upd({ sync: sy }); this.toast(n + ' synced just now'); }
+  syncAll() { const sy = Object.assign({}, this.state.settings.sync); this.CH.forEach((c) => { if (this.state.settings.channels[c.name]) sy[c.name] = Date.now(); }); this.upd({ sync: sy }); this.toast('All connected channels synced'); }
+  regenKey() { this.upd({ apiKey: this.genKey() }); this.toast('New API key generated'); }
+  toggleIntegration(n) { const cur = (this.state.settings.integrations || {}); const on = !cur[n]; this.upd({ integrations: Object.assign({}, cur, { [n]: on }) }); this.toast(on ? n + ' connected · live sync on' : n + ' disconnected'); }
+  connectAll() { const ch = {}; this.CH.forEach((c) => { ch[c.name] = true; }); const sy = Object.assign({}, this.state.settings.sync); this.CH.forEach((c) => { sy[c.name] = Date.now(); }); this.upd({ channels: ch, sync: sy }); this.toast('All channels connected & synced'); }
+  replyMsg(id, guest) { this.readMsg(id); this.toast('Reply sent to ' + guest); }
+  setImport(slug, v) { const ic = Object.assign({}, this.state.settings.ical, { [slug]: v }); this.upd({ ical: ic }); }
+  setMarkup(n, d) { const cur = this.state.settings.pricing[n] || 0; const nv = Math.max(0, Math.min(60, cur + d)); const pr = Object.assign({}, this.state.settings.pricing, { [n]: nv }); this.upd({ pricing: pr }); }
+  editTemplate(i, v) { const tpl = this.state.settings.templates.slice(); tpl[i] = Object.assign({}, tpl[i], { body: v }); this.upd({ templates: tpl }); }
+  copy(t, m) { try { navigator.clipboard.writeText(t); this.toast(m || 'Copied'); } catch (e) { this.toast('Copy failed'); } }
+
+  monthMeta() { const [y, m] = this.state.calMonth.split('-').map(Number); return { y, m, days: new Date(y, m, 0).getDate() }; }
+  shiftMonth(d) { let [y, m] = this.state.calMonth.split('-').map(Number); m += d; if (m > 12) { m = 1; y++; } if (m < 1) { m = 12; y--; } this.setState({ calMonth: y + '-' + String(m).padStart(2, '0') }); }
+  monthLabel() { const [y, m] = this.state.calMonth.split('-').map(Number); return new Date(y, m - 1, 1).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); }
+
+  renderVals() {
+    if (!this.state.settings) return { showLogin: !this.state.loggedIn, showApp: this.state.loggedIn };
+    const S = this.state;
+    const titles = {
+      dashboard: ['Dashboard', 'Your portfolio at a glance'], calendar: ['Multi-calendar', 'Availability across all properties'],
+      reservations: ['Reservations', 'Every booking across channels'], messages: ['Messages', 'Unified guest inbox'],
+      channels: ['Channels', 'Connected OTA platforms'], finance: ['Finance', 'Payouts, cashflow & forecast'],
+      business: ['Business', 'Investor metrics & unit economics'],
+      pricing: ['Pricing', 'Dynamic rules per channel'], integrations: ['Integrations', 'API access & automations'],
+      settings: ['Settings', 'Calendar sync, templates & team']
+    };
+    const active = S.reservations.filter((r) => r.status !== 'cancelled');
+    const pf = S.propFilter || 'all';
+    const scoped = pf === 'all' ? active : active.filter((r) => r.slug === pf);
+    const scopedRes = pf === 'all' ? S.reservations : S.reservations.filter((r) => r.slug === pf);
+    const scopeUnits = pf === 'all' ? this.PROPS.length : 1;
+    const propFilterOpts = [{ v: 'all', l: 'All properties' }].concat(this.PROPS.map((p) => ({ v: p.slug, l: p.name })));
+    const unread = S.messages.filter((m) => m.unread).length;
+    const navDefs = [['dashboard', 'Dashboard', ''], ['finance', 'Finance', ''], ['business', 'Business', ''], ['calendar', 'Multi-calendar', ''], ['reservations', 'Reservations', String(active.length)], ['messages', 'Messages', unread ? String(unread) : ''], ['channels', 'Channels', ''], ['pricing', 'Pricing', ''], ['integrations', 'Integrations', ''], ['settings', 'Settings', '']];
+    const navBase = 'cursor:pointer;display:flex;align-items:center;justify-content:space-between;text-align:left;border:none;border-radius:11px;padding:11px 13px;font-size:14px;font-weight:500;transition:all .15s;';
+    const navItems = navDefs.map(([k, label, badge]) => ({ label, badge, onClick: () => this.setView(k),
+      style: navBase + (S.view === k ? 'background:rgba(21,48,42,.07);color:#15302a;font-weight:600;' : 'background:none;color:rgba(21,48,42,.6);'),
+      badgeStyle: badge ? 'font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:' + (S.view === k ? '#b8893f' : 'rgba(21,48,42,.1)') + ';color:' + (S.view === k ? '#fff' : 'rgba(21,48,42,.55)') : 'display:none' }));
+
+    // dashboard data
+    const now = new Date('2026-06-27');
+    const mm = this.monthMeta();
+    const inMonth = (d) => { const x = new Date(d); return x.getFullYear() === mm.y && (x.getMonth() + 1) === mm.m; };
+    const monthRevenue = scopedRes.filter((r) => r.status === 'confirmed' && inMonth(r.checkIn)).reduce((s, r) => s + this.amount(r), 0);
+    let bn = 0; scoped.forEach((r) => { let d = new Date(r.checkIn), e = new Date(r.checkOut); while (d < e) { if (d.getFullYear() === mm.y && (d.getMonth() + 1) === mm.m) bn++; d = new Date(d.getTime() + 86400000); } });
+    const occ = Math.round(bn / (scopeUnits * mm.days) * 100);
+    const upcomingList = scoped.filter((r) => new Date(r.checkIn) >= now).sort((a, b) => new Date(a.checkIn) - new Date(b.checkIn));
+    const kpis = [
+      { label: 'ACTIVE BOOKINGS', value: active.length, sub: S.reservations.length + ' on file', trend: 'live', trendStyle: 'font-size:11.5px;font-weight:700;color:#b8893f;background:rgba(184,137,63,.12);padding:3px 8px;border-radius:999px' },
+      { label: 'UPCOMING CHECK-INS', value: upcomingList.length, sub: 'from today', trend: '', trendStyle: 'display:none' },
+      { label: 'NIGHTS BOOKED', value: bn, sub: this.monthLabel(), trend: '', trendStyle: 'display:none' },
+      { label: 'AVG RATING', value: '4.75', sub: '155 reviews', trend: '★', trendStyle: 'font-size:13px;color:#c9a24b' }
+    ];
+    const decorate = (r) => ({ guest: r.guest, initial: r.guest.charAt(0).toUpperCase(), propertyName: this.prop(r.slug).name, dateRange: this.fmtRange(r.checkIn, r.checkOut), channel: r.channel, channelStyle: this.chStyle(r.channel), status: r.status.charAt(0).toUpperCase() + r.status.slice(1), statusStyle: this.stStyle(r.status), guests: r.guests, nights: this.nights(r.checkIn, r.checkOut), amount: this.inrFull(this.amount(r)), onCancel: () => this.cancelRes(r.id), onDelete: () => this.deleteRes(r.id) });
+    const upcoming = upcomingList.slice(0, 5).map(decorate);
+
+    // revenue trend (history actuals + computed July)
+    const hist = [['Jan', 138000], ['Feb', 156000], ['Mar', 171000], ['Apr', 184000], ['May', 198000]];
+    const series = hist.concat([['Jun', monthRevenue || 207000]]);
+    const maxV = Math.max.apply(null, series.map((x) => x[1]));
+    const revBars = series.map(([short, v]) => ({ short, value: v, label: this.inr(v), barStyle: 'width:100%;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,#c9a24b,#9a7424);height:' + Math.round(v / maxV * 130) + 'px' }));
+    const revTotalNum = series.reduce((s, x) => s + x[1], 0);
+
+    // channel mix by revenue
+    const mixMap = {}; active.forEach((r) => { mixMap[r.channel] = (mixMap[r.channel] || 0) + this.amount(r); });
+    const mixTotal = Object.values(mixMap).reduce((s, v) => s + v, 0) || 1;
+    const channelMix = Object.keys(mixMap).sort((a, b) => mixMap[b] - mixMap[a]).map((name) => { const pct = Math.round(mixMap[name] / mixTotal * 100); const col = this.chColor(name); return { name, pct, color: col, barStyle: 'height:100%;width:' + pct + '%;background:' + col + ';border-radius:6px' }; });
+
+    const tasks = S.tasks.map((t) => ({ title: t.title, meta: t.meta, onToggle: () => this.toggleTask(t.id), check: t.done ? '✓' : '', checkStyle: 'cursor:pointer;width:22px;height:22px;border-radius:7px;border:1.5px solid ' + (t.done ? '#1f7a52' : 'rgba(21,48,42,.25)') + ';background:' + (t.done ? '#1f7a52' : '#fff') + ';color:#fff;font-size:13px;flex-shrink:0;display:flex;align-items:center;justify-content:center', textStyle: 'font-size:13.5px;font-weight:500;' + (t.done ? 'text-decoration:line-through;color:rgba(21,48,42,.4)' : 'color:#15302a') }));
+    const openTasks = S.tasks.filter((t) => !t.done).length;
+
+    // calendar
+    const days = [];
+    for (let d = 1; d <= mm.days; d++) { const dow = new Date(mm.y, mm.m - 1, d).getDay(); const we = dow === 0 || dow === 6; days.push({ d, headStyle: 'text-align:center;font-size:10px;font-weight:600;padding:4px 0;border-radius:6px;color:' + (we ? '#9a7424' : 'rgba(21,48,42,.5)') + ';background:' + (we ? 'rgba(184,137,63,.08)' : 'transparent') }); }
+    const calRows = this.PROPS.map((p) => { const cells = []; for (let d = 1; d <= mm.days; d++) { const date = new Date(mm.y, mm.m - 1, d); const r = S.reservations.find((x) => x.slug === p.slug && x.status !== 'cancelled' && new Date(x.checkIn) <= date && date < new Date(x.checkOut)); let style = 'height:30px;border-radius:6px;background:rgba(21,48,42,.05);'; let title = p.name + ' · free'; if (r) { const col = this.chColor(r.channel); if (r.status === 'pending') style = 'height:30px;border-radius:6px;background:repeating-linear-gradient(45deg,' + col + ',' + col + ' 4px,' + col + '99 4px,' + col + '99 8px);'; else style = 'height:30px;border-radius:6px;background:' + col + ';'; title = p.name + ' · ' + r.guest + ' (' + r.channel + ')'; } cells.push({ style, title }); } return { name: p.name, cells }; });
+    const legend = this.CH.slice(0, 6).map((c) => ({ name: c.name, color: c.color }));
+
+    // reservations table
+    const sf = S.statusFilter;
+    const rc = S.resChannel || 'all', rp = S.resProperty || 'all';
+    const filtered = S.reservations.filter((r) => (sf === 'all' || r.status === sf) && (rp === 'all' || r.slug === rp) && (rc === 'all' || (rc === '__ota' ? r.channel !== 'Direct' : rc === '__direct' ? r.channel === 'Direct' : r.channel === rc)));
+    const resRows = filtered.slice().sort((a, b) => new Date(a.checkIn) - new Date(b.checkIn)).map(decorate);
+    const chanOpts = [{ v: 'all', l: 'All channels' }, { v: '__ota', l: 'OTA platforms' }, { v: '__direct', l: 'Individual / Direct' }].concat(this.CH.map((c) => ({ v: c.name, l: c.name })));
+    const propOpts = [{ v: 'all', l: 'All properties' }].concat(this.PROPS.map((p) => ({ v: p.slug, l: p.name })));
+    const fbase = 'cursor:pointer;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid;';
+    const statusFilters = [['all', 'All'], ['confirmed', 'Confirmed'], ['pending', 'Pending'], ['cancelled', 'Cancelled']].map(([k, label]) => ({ label, onClick: () => this.setState({ statusFilter: k }), style: fbase + (sf === k ? 'background:#15302a;color:#fff;border-color:#15302a;' : 'background:#fff;color:rgba(21,48,42,.6);border-color:rgba(21,48,42,.13);') }));
+
+    // messages
+    const messages = S.messages.map((m) => ({ guest: m.guest, initial: m.guest.charAt(0), channel: m.channel, channelStyle: this.chStyle(m.channel), preview: m.preview, time: m.time, onRead: () => this.readMsg(m.id), onReply: () => this.replyMsg(m.id, m.guest), rowStyle: 'display:flex;align-items:center;gap:14px;padding:16px 22px;border-top:1px solid rgba(21,48,42,.05);background:' + (m.unread ? 'rgba(184,137,63,.05)' : '#fff'), dotStyle: m.unread ? 'display:inline-block;width:9px;height:9px;border-radius:50%;background:#b8893f;margin-top:6px' : 'display:none' }));
+
+    // channels
+    const chanCat = S.chanCat || 'all';
+    const chanFilters = [['all', 'All channels'], ['ota', 'OTA platforms'], ['direct', 'Individual / Direct']].map(([k, label]) => ({ label, onClick: () => this.setState({ chanCat: k }), style: fbase + (chanCat === k ? 'background:#15302a;color:#fff;border-color:#15302a;' : 'background:#fff;color:rgba(21,48,42,.6);border-color:rgba(21,48,42,.13);') }));
+    const channels = this.CH.filter((c) => chanCat === 'all' ? true : chanCat === 'direct' ? c.name === 'Direct' : c.name !== 'Direct').map((c) => { const on = !!S.settings.channels[c.name]; const last = S.settings.sync[c.name]; const isOta = c.name !== 'Direct'; return { name: c.name, color: c.color, mark: c.mark, cat: isOta ? 'OTA' : 'INDIVIDUAL', catStyle: 'padding:3px 9px;border-radius:999px;font-size:9.5px;font-weight:700;letter-spacing:.08em;color:' + (isOta ? '#2f6fb0' : '#1f7a52') + ';background:' + (isOta ? 'rgba(47,111,176,.1)' : 'rgba(31,122,82,.1)'), sync: on ? 'API · two-way' : 'iCal available', desc: this.CHDESC[c.name], badge: on ? 'Connected' : 'Connect', badgeStyle: 'padding:5px 12px;border-radius:999px;font-size:11px;font-weight:700;color:' + (on ? '#1f7a52' : 'rgba(21,48,42,.45)') + ';background:' + (on ? 'rgba(31,122,82,.12)' : 'rgba(21,48,42,.06)'), lastSync: last ? 'Synced ' + new Date(last).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) : 'Not synced', onSync: () => this.syncChannel(c.name), onToggle: () => this.toggleChannel(c.name), syncStyle: 'cursor:' + (on ? 'pointer' : 'not-allowed') + ';padding:9px 14px;border-radius:10px;border:1px solid rgba(21,48,42,.14);background:#fff;font-size:12.5px;font-weight:600;opacity:' + (on ? '1' : '.4'), toggleLabel: on ? 'Disconnect' : 'Connect', toggleStyle: 'cursor:pointer;padding:9px 14px;border-radius:10px;border:none;font-size:12.5px;font-weight:600;color:#fff;background:' + (on ? '#b03a2e' : 'linear-gradient(120deg,#c9a24b,#9a7424)') }; });
+
+    // finance
+    const grossM = monthRevenue;
+    const commission = scoped.filter((r) => inMonth(r.checkIn)).reduce((s, r) => { const rate = r.channel === 'Direct' ? 0 : r.channel === 'Airbnb' ? 0.03 : 0.15; return s + this.amount(r) * rate; }, 0);
+    const netPayout = grossM - commission;
+    const finKpis = [
+      { label: 'GROSS REVENUE', value: this.inr(grossM), sub: this.monthLabel(), color: 'rgba(21,48,42,.5)' },
+      { label: 'OTA COMMISSION', value: '−' + this.inr(commission), sub: 'across channels', color: '#b03a2e' },
+      { label: 'NET PAYOUT', value: this.inr(netPayout), sub: 'to owner', color: '#1f7a52' },
+      { label: 'NEXT MONTH (EST.)', value: this.inr(grossM * 1.12), sub: 'forecast +12%', color: '#b8893f' }
+    ];
+    const fseries = [['May', 198000], ['Jun', grossM || 207000], ['Jul', Math.round((grossM || 207000) * 1.12)], ['Aug', Math.round((grossM || 207000) * 1.2)]];
+    const fmax = Math.max.apply(null, fseries.map((x) => x[1]));
+    const forecastBars = fseries.map(([short, v], i) => ({ short, barStyle: 'width:100%;border-radius:8px 8px 4px 4px;height:' + Math.round(v / fmax * 115) + 'px;background:' + (i >= 2 ? 'repeating-linear-gradient(45deg,#c9a24b,#c9a24b 5px,#e7cd86 5px,#e7cd86 10px)' : 'linear-gradient(180deg,#1c4a3b,#15302a)') }));
+    const statement = [
+      { label: 'Gross booking revenue', value: this.inrFull(grossM), labelStyle: 'color:rgba(21,48,42,.7)', valStyle: 'font-weight:600' },
+      { label: 'OTA commissions', value: '−' + this.inrFull(commission), labelStyle: 'color:rgba(21,48,42,.7)', valStyle: 'font-weight:600;color:#b03a2e' },
+      { label: 'Management fee (15%)', value: '−' + this.inrFull(netPayout * 0.15), labelStyle: 'color:rgba(21,48,42,.7)', valStyle: 'font-weight:600;color:#b03a2e' },
+      { label: 'Net to owner', value: this.inrFull(netPayout * 0.85), labelStyle: 'font-weight:700;color:#15302a', valStyle: 'font-weight:700;color:#1f7a52;font-size:16px' }
+    ];
+    const payouts = scoped.slice(0, 5).map((r) => ({ channel: r.channel, channelStyle: this.chStyle(r.channel), note: r.guest + ' · ' + this.prop(r.slug).name, date: this.fmtRange(r.checkIn, r.checkOut).split(' – ')[0], amount: this.inrFull(this.amount(r)) }));
+
+    // business / investor metrics
+    const bizScope = S.bizScope || 'all';
+    const bizSet = bizScope === 'ota' ? scoped.filter((r) => r.channel !== 'Direct') : bizScope === 'direct' ? scoped.filter((r) => r.channel === 'Direct') : scoped;
+    const bizFilters = [['all', 'Portfolio'], ['ota', 'OTA only'], ['direct', 'Direct only']].map(([k, label]) => ({ label, onClick: () => this.setState({ bizScope: k }), style: fbase + (bizScope === k ? 'background:#15302a;color:#fff;border-color:#15302a;' : 'background:#fff;color:rgba(21,48,42,.6);border-color:rgba(21,48,42,.13);') }));
+    let totalNights = 0, roomRevenue = 0; bizSet.forEach((r) => { totalNights += this.nights(r.checkIn, r.checkOut); roomRevenue += this.amount(r); });
+    const adr = totalNights ? roomRevenue / totalNights : 0;
+    const revpar = adr * occ / 100;
+    const alos = bizSet.length ? totalNights / bizSet.length : 0;
+    const avgBooking = bizSet.length ? roomRevenue / bizSet.length : 0;
+    const directPct = active.length ? Math.round(active.filter((r) => r.channel === 'Direct').length / active.length * 100) : 0;
+    const bizBookings = active.filter((r) => inMonth(r.checkIn)).length || 1;
+    const opCommission = commission, opCleaning = bizBookings * 1200, opMaint = monthRevenue * 0.04, opUtil = monthRevenue * 0.03, opStaff = 35000, opSoftware = 6000, opMarketing = 15000;
+    const opex = opCommission + opCleaning + opMaint + opUtil + opStaff + opSoftware + opMarketing;
+    const ebitda = monthRevenue - opex;
+    const ebitdaMargin = monthRevenue ? Math.round(ebitda / monthRevenue * 100) : 0;
+    const variableCost = opCommission + opCleaning + opMaint + opUtil;
+    const grossMargin = monthRevenue ? Math.round((monthRevenue - variableCost) / monthRevenue * 100) : 0;
+    const arr = monthRevenue * 12;
+    const cac = Math.round(opMarketing / bizBookings);
+    const ltv = Math.round(avgBooking * 1.6 * grossMargin / 100);
+    const ltvCac = cac ? (ltv / cac).toFixed(1) : '—';
+    const contribPerBooking = avgBooking * grossMargin / 100;
+    const payback = contribPerBooking ? (cac / contribPerBooking).toFixed(1) : '—';
+    const goldPill = 'font-size:11.5px;font-weight:700;color:#b8893f;background:rgba(184,137,63,.12);padding:3px 8px;border-radius:999px';
+    const bizKpis = [
+      { label: 'ADR · AVG DAILY RATE', value: this.inrFull(Math.round(adr)), sub: 'per booked night', trend: 'live', trendStyle: goldPill },
+      { label: 'RevPAR', value: this.inrFull(Math.round(revpar)), sub: 'rev / available night', trend: 'live', trendStyle: goldPill },
+      { label: 'EBITDA MARGIN', value: ebitdaMargin + '%', sub: this.inr(ebitda) + ' / mo', trend: ebitda >= 0 ? 'profit' : 'burn', trendStyle: 'font-size:11.5px;font-weight:700;color:' + (ebitda >= 0 ? '#1f7a52' : '#b03a2e') + ';background:' + (ebitda >= 0 ? 'rgba(31,122,82,.12)' : 'rgba(176,58,46,.12)') + ';padding:3px 8px;border-radius:999px' },
+      { label: 'ARR RUN-RATE', value: this.inr(arr), sub: 'monthly × 12', trend: '+12%', trendStyle: 'font-size:11.5px;font-weight:700;color:#1f7a52;background:rgba(31,122,82,.12);padding:3px 8px;border-radius:999px' }
+    ];
+    const pnl = [['Booking revenue', this.inrFull(monthRevenue), 'pos'], ['Channel commissions', '−' + this.inrFull(Math.round(opCommission)), 'neg'], ['Housekeeping', '−' + this.inrFull(opCleaning), 'neg'], ['Maintenance', '−' + this.inrFull(Math.round(opMaint)), 'neg'], ['Ops & staff', '−' + this.inrFull(opStaff), 'neg'], ['Marketing (CAC)', '−' + this.inrFull(opMarketing), 'neg'], ['Software & utilities', '−' + this.inrFull(Math.round(opSoftware + opUtil)), 'neg'], ['EBITDA', this.inrFull(Math.round(ebitda)), 'tot']].map(([label, value, t]) => ({ label, value, labelStyle: t === 'tot' ? 'font-weight:700;color:#15302a' : 'color:rgba(21,48,42,.7)', valStyle: t === 'neg' ? 'font-weight:600;color:#b03a2e' : t === 'tot' ? 'font-weight:800;color:#1f7a52;font-size:17px' : 'font-weight:700', rowStyle: 'display:flex;align-items:center;justify-content:between;justify-content:space-between;font-size:14px;' + (t === 'tot' ? 'padding-top:12px;margin-top:4px;border-top:1.5px solid rgba(21,48,42,.12)' : '') }));
+    const unit = [['Avg booking value', this.inrFull(Math.round(avgBooking))], ['Avg length of stay', alos.toFixed(1) + ' nights'], ['Gross margin', grossMargin + '%'], ['CAC · per booking', this.inrFull(cac)], ['LTV · per guest', this.inrFull(ltv)], ['LTV : CAC', ltvCac + 'x'], ['CAC payback', payback + ' bookings'], ['Direct mix', directPct + '%']].map(([label, value]) => ({ label, value }));
+    const bizTerms = [
+      { term: 'EBITDA', def: 'Earnings before interest, tax, depreciation & amortisation — core operating profit.' },
+      { term: 'ADR', def: 'Average Daily Rate — revenue per booked night. Pricing power in one number.' },
+      { term: 'RevPAR', def: 'Revenue Per Available Night = ADR × occupancy. The truest yield metric.' },
+      { term: 'CAC', def: 'Customer Acquisition Cost — marketing spend to win one booking.' },
+      { term: 'LTV : CAC', def: 'Lifetime value vs cost to acquire. Above 3x is a healthy, fundable business.' },
+      { term: 'ARR', def: 'Annual run-rate — current monthly revenue annualised (×12).' }
+    ];
+    const marketNotes = [
+      { tag: 'DEMAND', title: 'Thane short-stay demand climbs into Q3', note: 'Mall-side and Hiranandani micro-markets show the strongest weekend pickup — lean min-stays into the surge.' },
+      { tag: 'PRICING', title: 'Festive-season ADR uplift ahead', note: 'Model a 12–18% ADR lift across Aug–Oct; tighten minimum-stay rules on peak dates to protect yield.' },
+      { tag: 'CHANNEL', title: 'Direct bookings are worth defending', note: 'Each direct booking saves 15–18% in OTA commission — push the website widget and repeat-guest offers.' }
+    ];
+
+    // pricing
+    const pricingRows = this.CH.map((c) => { const mk = S.settings.pricing[c.name] || 0; const avg = 5000 * (1 + mk / 100); return { name: c.name, color: c.color, markup: mk, onInc: () => this.setMarkup(c.name, 1), onDec: () => this.setMarkup(c.name, -1), example: this.inrFull(avg) + '/night' }; });
+
+    // integrations
+    const useCases = [
+      { icon: '🌐', title: 'Website booking widget', desc: 'Pull live availability into theempirestayys.com so guests book direct, commission-free.', btn: 'Get embed code', tint: 'rgba(42,166,87,.12)' },
+      { icon: '💬', title: 'WhatsApp & email alerts', desc: 'Auto-notify your team and guests the moment a booking is confirmed or cancelled.', btn: 'Set up alerts', tint: 'rgba(31,122,82,.12)' },
+      { icon: '📊', title: 'Google Sheets / Excel', desc: 'Stream every reservation into a sheet for finance and reporting in real time.', btn: 'Connect Sheets', tint: 'rgba(184,137,63,.14)' },
+      { icon: '⚡', title: 'Zapier & webhooks', desc: 'Fire a webhook on any event and wire Empire Stayys into 6,000+ apps.', btn: 'View webhooks', tint: 'rgba(47,111,176,.12)' },
+      { icon: '🧾', title: 'Accounting export', desc: 'Push payouts and commissions to your accounting tool every month.', btn: 'Connect', tint: 'rgba(108,78,214,.12)' }
+    ].map((u) => { const on = !!(S.settings.integrations || {})[u.title]; return { icon: u.icon, title: u.title, desc: u.desc, btn: on ? '✓ Connected' : u.btn, tint: u.tint, onConnect: () => this.toggleIntegration(u.title), btnStyle: 'cursor:pointer;padding:10px 16px;border-radius:10px;border:1px solid ' + (on ? 'rgba(31,122,82,.4)' : 'rgba(21,48,42,.14)') + ';background:' + (on ? 'rgba(31,122,82,.1)' : '#fff') + ';font-weight:600;font-size:12.5px;color:' + (on ? '#1f7a52' : '#15302a') }; });
+    const key = S.settings.apiKey;
+    const curlSample = '# List upcoming reservations\ncurl https://api.theempirestayys.com/v1/reservations \\\n  -H "Authorization: Bearer ' + key + '" \\\n  -G -d status=confirmed -d from=2026-07-01\n\n# Create a direct booking\ncurl -X POST https://api.theempirestayys.com/v1/reservations \\\n  -H "Authorization: Bearer ' + key + '" \\\n  -d property=coastline-21 -d guest="Aarav Sharma" \\\n  -d check_in=2026-07-03 -d check_out=2026-07-07';
+    const jsSample = "const EMPIRE_KEY = '" + key + "';\n\n// Fetch live availability for the booking widget\nconst res = await fetch(\n  'https://api.theempirestayys.com/v1/availability?property=coastline-21',\n  { headers: { Authorization: `Bearer ${EMPIRE_KEY}` } }\n);\nconst { nights } = await res.json();\nrenderCalendar(nights); // your website widget";
+    const codeSample = S.codeTab === 'curl' ? curlSample : jsSample;
+
+    // settings
+    const icalRows = this.PROPS.map((p) => ({ name: p.name, exportUrl: 'webcal://theempirestayys.com/ical/' + p.slug + '.ics', importUrl: S.settings.ical[p.slug] || '', onCopy: () => this.copy('https://theempirestayys.com/ical/' + p.slug + '.ics', 'Export URL copied'), onImport: (e) => this.setImport(p.slug, e.target.value) }));
+    const templates = S.settings.templates.map((t, i) => ({ title: t.title, body: t.body, onEdit: (e) => this.editTemplate(i, e.target.value) }));
+    const team = [
+      { name: 'Meet', email: 'meet@theempirestayys.com', role: 'Owner', initial: 'M' },
+      { name: 'Operations Lead', email: 'ops@theempirestayys.com', role: 'Manager', initial: 'O' },
+      { name: 'Housekeeping', email: 'care@theempirestayys.com', role: 'Staff', initial: 'H' }
+    ].map((m) => ({ name: m.name, email: m.email, initial: m.initial, role: m.role, roleStyle: 'padding:5px 12px;border-radius:999px;font-size:11.5px;font-weight:600;color:' + (m.role === 'Owner' ? '#9a7424' : m.role === 'Manager' ? '#2f6fb0' : 'rgba(21,48,42,.55)') + ';background:' + (m.role === 'Owner' ? 'rgba(184,137,63,.14)' : m.role === 'Manager' ? 'rgba(47,111,176,.12)' : 'rgba(21,48,42,.07)') }));
+
+    const f = S.form || this.blankForm();
+    const codeTabBase = 'cursor:pointer;padding:7px 14px;border-radius:8px;border:none;font-size:12.5px;font-weight:600;';
+    return {
+      showLogin: !S.loggedIn, showApp: S.loggedIn,
+      loginUser: S.loginUser, loginPass: S.loginPass, loginErr: S.loginErr,
+      loginErrStyle: 'color:#b03a2e;font-size:12.5px;font-weight:500;min-height:16px;' + (S.loginErr ? '' : 'visibility:hidden'),
+      onLoginUser: (e) => this.setState({ loginUser: e.target.value }), onLoginPass: (e) => this.setState({ loginPass: e.target.value }),
+      onLoginKey: (e) => { if (e.key === 'Enter') this.doLoginCreds(); },
+      loginOwner: () => this.doLoginCreds(), loginGoogle: () => this.doLoginGoogle(), doLogout: () => this.doLogout(),
+      userName: 'Meet Patel', userRole: S.role === 'Staff' ? 'Staff access' : 'Superhost · Owner',
+      navItems, viewTitle: (titles[S.view] || ['', ''])[0], viewSub: (titles[S.view] || ['', ''])[1],
+      isDashboard: S.view === 'dashboard', isCalendar: S.view === 'calendar', isReservations: S.view === 'reservations', isMessages: S.view === 'messages', isChannels: S.view === 'channels', isFinance: S.view === 'finance', isBusiness: S.view === 'business', isPricing: S.view === 'pricing', isIntegrations: S.view === 'integrations', isSettings: S.view === 'settings',
+      bizKpis, pnl, unit, bizTerms, marketNotes, arrLabel: this.inr(arr),
+      hero: { revenue: this.inr((S.period || 'Monthly') === 'Weekly' ? monthRevenue / 4.3 : (S.period || 'Monthly') === 'Yearly' ? arr : monthRevenue), arr: this.inr(arr), ebitda: ebitdaMargin + '%', occ: occ + '%', adr: this.inrFull(Math.round(adr)), revpar: this.inrFull(Math.round(revpar)) },
+      heroPeriodLabel: (S.period || 'Monthly') === 'Weekly' ? 'This week (avg)' : (S.period || 'Monthly') === 'Yearly' ? ('FY ' + mm.y) : (S.period || 'Monthly') === 'Custom' ? 'Custom range' : this.monthLabel(),
+      period: S.period || 'Monthly', onPeriod: (e) => this.setState({ period: e.target.value }),
+      periodOpts: [{ v: 'Weekly', l: 'Weekly' }, { v: 'Monthly', l: 'Monthly' }, { v: 'Yearly', l: 'Yearly' }, { v: 'Custom', l: 'Custom dates' }],
+      newsletterEmail: S.newsletterEmail, onNewsletter: (e) => this.setState({ newsletterEmail: e.target.value }), subscribeNewsletter: () => this.subscribeNewsletter(),
+      kpis, revBars, revTotal: this.inr(revTotalNum), revTrend: '+11% vs prior 6 mo', channelMix, upcoming, goReservations: () => this.setView('reservations'),
+      tasks, openTasks,
+      monthLabel: this.monthLabel(), prevMonth: () => this.shiftMonth(-1), nextMonth: () => this.shiftMonth(1), calDays: days, calRows, dayCols: 'repeat(' + mm.days + ',minmax(20px,1fr))', legend,
+      resRows, statusFilters, chanOpts, propOpts, resChannel: rc, resProperty: rp,
+      onResChannel: (e) => this.setState({ resChannel: e.target.value }), onResProperty: (e) => this.setState({ resProperty: e.target.value }),
+      messages, unreadCount: unread,
+      channels, chanFilters, connectAll: () => this.connectAll(),
+      bizFilters,
+      finKpis, forecastBars, statement, payouts, exportStatement: () => this.toast('Owner statement exported (CSV)'),
+      pricingRows,
+      apiKey: key, webhookUrl: 'https://hooks.theempirestayys.com/' + key.slice(8, 20),
+      copyKey: () => this.copy(key, 'API key copied'), regenKey: () => this.regenKey(), copyHook: () => this.copy('https://hooks.theempirestayys.com/' + key.slice(8, 20), 'Webhook URL copied'),
+      useCases, codeSample, copyCode: () => this.copy(codeSample, 'Code copied'),
+      tabCurl: () => this.setState({ codeTab: 'curl' }), tabJs: () => this.setState({ codeTab: 'js' }),
+      curlTabStyle: codeTabBase + (S.codeTab === 'curl' ? 'background:#fff;color:#15302a;box-shadow:0 1px 3px rgba(0,0,0,.1)' : 'background:none;color:rgba(21,48,42,.5)'),
+      jsTabStyle: codeTabBase + (S.codeTab === 'js' ? 'background:#fff;color:#15302a;box-shadow:0 1px 3px rgba(0,0,0,.1)' : 'background:none;color:rgba(21,48,42,.5)'),
+      icalRows, templates, team,
+      modalOpen: S.modalOpen, openModal: () => this.setState({ modalOpen: true, formErr: '' }), closeModal: () => this.setState({ modalOpen: false }), stop: (e) => e.stopPropagation(),
+      syncAll: () => this.syncAll(),
+      propFilter: pf, propFilterOpts, onPropFilter: (e) => this.setState({ propFilter: e.target.value }), propFilterActive: pf !== 'all',
+      form: f, propertyOptions: this.PROPS, channelNames: this.CH.map((c) => c.name),
+      onFormGuest: (e) => this.setState({ form: Object.assign({}, f, { guest: e.target.value }) }),
+      onFormProperty: (e) => this.setState({ form: Object.assign({}, f, { property: e.target.value }) }),
+      onFormIn: (e) => this.setState({ form: Object.assign({}, f, { checkIn: e.target.value }) }),
+      onFormOut: (e) => this.setState({ form: Object.assign({}, f, { checkOut: e.target.value }) }),
+      onFormGuests: (e) => this.setState({ form: Object.assign({}, f, { guests: e.target.value }) }),
+      onFormChannel: (e) => this.setState({ form: Object.assign({}, f, { channel: e.target.value }) }),
+      addReservation: () => this.addReservation(), formErr: S.formErr, formErrStyle: 'color:#b03a2e;font-size:12.5px;font-weight:500;' + (S.formErr ? '' : 'display:none'),
+      toast: S.toast, toastStyle: 'position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(' + (S.toast ? '0' : '20px') + ');z-index:200;padding:13px 22px;border-radius:12px;background:#15302a;color:#e7cd86;font-size:13.5px;font-weight:600;box-shadow:0 20px 50px -20px rgba(0,0,0,.5);transition:all .3s;opacity:' + (S.toast ? '1' : '0') + ';pointer-events:none'
+    };
+  }
+}
+</script>
+</body>
+</html>
