@@ -59,3 +59,12 @@ jobs:
             Installable debug APK built from `main`. Download `app-debug.apk`,
             open it on an Android phone, allow "install from unknown apps".
             Demo login: master / residio@master
+
+      - name: Notify Make.com — Deploy Notifier (WhatsApp)
+        if: always()
+        run: |
+          STATUS="${{ job.status }}"
+          curl -s -X POST "https://hook.eu1.make.com/25iqjsc4ks74pi0mi4zbbrufly99opwt" \
+            -H "Content-Type: application/json" \
+            -d "{\"status\":\"$STATUS\",\"apk_url\":\"https://github.com/theempirestayys/residio-sample-01/releases/latest\",\"branch\":\"$GITHUB_REF_NAME\",\"commit\":\"$GITHUB_SHA\",\"workflow\":\"android-debug\"}" \
+            || true
