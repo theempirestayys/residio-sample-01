@@ -75,4 +75,11 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.navigation:navigation-compose:2.8.0")
+
+    // Biometric authentication
+    implementation("androidx.biometric:biometric:1.1.0")
+
+    // Credentials / Google Sign-In (stub — wire Firebase credentials when ready)
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
 }
